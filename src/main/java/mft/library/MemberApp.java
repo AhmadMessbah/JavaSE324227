@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class MainApp extends Application {
+public class MemberApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         log.info("Starting Application");
