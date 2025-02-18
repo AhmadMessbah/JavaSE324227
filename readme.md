@@ -29,7 +29,6 @@ Next Sessions :
     -- Thread
     -- SingleTon
     -- Connection Pool
-    -- GitHub
     -- MultiForm (Send data between forms)
     -- Login/Logout
     -- App/Database/View Relations
