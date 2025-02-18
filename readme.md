@@ -6,6 +6,15 @@ Instruction :
     -- Run App By Running /src/main/java/mft/library/MainApp
 
 
+Tasks : (Entity, Repository, Service, Test, Controller, View)
+    -- Amir Soleimani       --> DriverLicense (id, licenseId, person, dateTime, expire, type, city)
+    -- Rouzbeh Yousefi      --> MilitaryLicense (id, militaryId, person, startMilitaryDate, endMilitaryDate, type, city)
+    -- AmirHamzeh Zamani    --> EducationLicense (id, person, licenseType, institute, licenseDate, score, city)
+    -- AmirMohammad Hidaji  --> JobHistory (id, person, job, company, startDate, endDate, description)
+    -- Fatemeh Jebreili     --> InsuranceHistory (id, person, insuranceId, company, startDate, endDate, salary)
+    -- Behnaz Mohammadi     --> Employment (id, person, department, job, salary, startDate, endDate)
+
+
 
 Todo :
 
