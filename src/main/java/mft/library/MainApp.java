@@ -15,7 +15,5 @@ public class MainApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Member Info");
         primaryStage.show();
-
-        System.out.println("Dastoore Jadid");
     }
 }
