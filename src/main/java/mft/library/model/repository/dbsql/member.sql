@@ -11,8 +11,3 @@ create table members
 
 create sequence member_seq start with 1 increment by 1;
 
-
-
--- create table books();
-
--- create table borrows();
