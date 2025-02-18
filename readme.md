@@ -1,6 +1,6 @@
 Instruction : 
 
-    -- Create database tables from /src/main/java/mft/library/repository/database.sql
+    -- Create database tables from /src/main/java/mft/library/repository/member.sql
     -- Run /src/test/java/JavaDataCreator
 
     -- Run App By Running /src/main/java/mft/library/MainApp
