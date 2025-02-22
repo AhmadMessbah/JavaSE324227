@@ -18,25 +18,22 @@ import java.util.ResourceBundle;
 public class JobController implements Initializable {
 
     @FXML
-    private TextField idTxt,personTxt,jobTxt,companyTxt,descriptionTxt,personSearchTxt,jobSearchTxt;
+    private TextField idTxt,personTxt,jobTxt,companyTxt,descriptionTxt,personSearchTxt,jobSearchTxt ;
 
     @FXML
     private Button saveBtn, editBtn, removeBtn;
 
     @FXML
-    private Deprecated startDate,endDate;
+    private DatePicker startDate,endDate;
 
     @FXML
-    private ToggleGroup activeToggleGroup;
-
-    @FXML
-    private TableView<Job> jobTable;
+    private TableView<JobHistory> jobTable;
 
     @FXML
     private TableColumn<Job, Integer> idCol,personCol,jobCol,companyCol,startDateCol,endDateCol;
 
     @FXML
-    private TableColumn<Job, String> personCol,jobCole;
+    private TableColumn<Job, String> jobCole;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
