@@ -23,7 +23,7 @@ public class MilitaryLicenseController implements Initializable {
     private TextField id, militaryId, firstName, lastName;
 
     @FXML
-    private Button saveBtn, updateBtn, deleteBtn;
+    private Button saveBtn, updateBtn, deleteBtn, refreshBtn;
 
     @FXML
     private DatePicker startDate, endDate;
@@ -47,7 +47,25 @@ public class MilitaryLicenseController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.info("View initialized");
+
+        provinceComboBox.setItems(FXCollections.observableArrayList(Province.values()));
+        provinceComboBox.setPromptText("Select Province");
+        militaryTypeComboBox.setItems(FXCollections.observableArrayList(MilitaryType.values()));
+        militaryTypeComboBox.setPromptText("Select Military Type");
         resetForm();
+
+        saveBtn.setOnMouseEntered(event -> saveBtn.setStyle("-fx-background-color: #00ff00;"));
+        saveBtn.setOnMouseExited(event -> saveBtn.setStyle("-fx-background-color: #00aa00;"));
+        saveBtn.setOnMousePressed(event -> {saveBtn.setStyle("-fx-background-color: #008800;");});
+
+        updateBtn.setOnMouseEntered(event -> updateBtn.setStyle("-fx-background-color: #0066ff;"));
+        updateBtn.setOnMouseExited(event -> updateBtn.setStyle("-fx-background-color: #0044ff;"));
+        updateBtn.setOnMousePressed(event -> {updateBtn.setStyle("-fx-background-color: #0044aa;");});
+
+        deleteBtn.setOnMouseEntered(event -> deleteBtn.setStyle("-fx-background-color: #ff0000;"));
+        deleteBtn.setOnMouseExited(event -> deleteBtn.setStyle("-fx-background-color: #dd0000;"));
+        deleteBtn.setOnMousePressed(event -> {deleteBtn.setStyle("-fx-background-color: #aa0000;");});
+
         saveBtn.setOnAction(event -> {
             try {
                 MilitaryLicenseEntity militaryLicenseEntity = MilitaryLicenseEntity
@@ -61,8 +79,7 @@ public class MilitaryLicenseController implements Initializable {
                         .province(provinceComboBox.getValue())
                         .build();
                 MilitaryLicenseService.save(militaryLicenseEntity);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "New License Saved : "
-                        + militaryLicenseEntity, ButtonType.OK);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "New License Saved ", ButtonType.OK);
                 alert.show();
                 resetForm();
                 log.info("License Saved : " + militaryLicenseEntity);
@@ -96,17 +113,22 @@ public class MilitaryLicenseController implements Initializable {
             }
         });
         deleteBtn.setOnAction(event -> {
-            try {
-                MilitaryLicenseService.remove(Integer.parseInt(id.getText()));
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "License Deleted", ButtonType.OK);
-                alert.show();
-                resetForm();
-                log.info("License Deleted");
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
-                alert.show();
-                log.error(e);
-            }
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you wanna delete?", ButtonType.YES, ButtonType.NO);
+            confirmation.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+                    try {
+                        MilitaryLicenseService.remove(Integer.parseInt(id.getText()));
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "License Deleted", ButtonType.OK);
+                        alert.show();
+                        resetForm();
+                        log.info("License Deleted");
+                    } catch (Exception e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                        alert.show();
+                        log.error(e);
+                    }
+                }
+            });
         });
 
         /*nameSearchTxt.setOnKeyReleased(event -> {
@@ -133,9 +155,13 @@ public class MilitaryLicenseController implements Initializable {
                 lastName.setText(militaryLicenseEntity.getLastName());
                 startDate.setValue(militaryLicenseEntity.getStartMilitaryDate());
                 endDate.setValue(militaryLicenseEntity.getEndMilitaryDate());
-                provinceComboBox.setValue(militaryLicenseEntity.getProvince());
-                militaryTypeComboBox.setValue(militaryLicenseEntity.getType());
+                provinceComboBox.getSelectionModel().select(militaryLicenseEntity.getProvince());
+                militaryTypeComboBox.getSelectionModel().select(militaryLicenseEntity.getType());
             }
+        });
+
+        refreshBtn.setOnAction(event -> {
+            resetForm();
         });
     }
 
@@ -161,8 +187,6 @@ public class MilitaryLicenseController implements Initializable {
         ObservableList<MilitaryLicenseEntity> militaryLicenseObservableList = FXCollections.observableArrayList(militaryLicenseList);
 //        militaryLicenseTable.getItems().clear();
 
-//        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        militaryIdCol.setCellValueFactory(new PropertyValueFactory<>("militaryId"));
         idCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
         militaryIdCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getMilitaryId()));
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));

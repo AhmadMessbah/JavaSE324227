@@ -20,6 +20,7 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
     public MilitaryLicenseRepository() throws Exception {
         ConnectionProvider connectionProvider = new ConnectionProvider();
         connection = connectionProvider.getConnection();
+        log.info("Connected to database");
     }
 
     @Override
@@ -30,7 +31,6 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
                 "INSERT INTO military_license (military_id, first_name, last_name, military_type, province, start_military_date, end_military_date)" +
                         " VALUES (?,?,?,?,?,?,?)"
         );
-//        preparedStatement.setInt(1, militaryLicenseEntity.getId());
         preparedStatement.setInt(1, militaryLicenseEntity.getMilitaryId());
         preparedStatement.setString(2, militaryLicenseEntity.getFirstName());
         preparedStatement.setString(3, militaryLicenseEntity.getLastName());
@@ -69,7 +69,7 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
     @Override
     public List<MilitaryLicenseEntity> findAll() throws Exception {
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM military_license ORDER BY last_name"
+                "SELECT * FROM military_license WHERE is_deleted = 0 ORDER BY id"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -83,6 +83,9 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
                     .lastName(resultSet.getString("last_name"))
                     .startMilitaryDate(resultSet.getDate("start_military_date").toLocalDate())
                     .endMilitaryDate(resultSet.getDate("end_military_date").toLocalDate())
+                    .province(Province.valueOf(resultSet.getString("province")))
+                    .type(MilitaryType.valueOf(resultSet.getString("military_type")))
+                    .endMilitaryDate(resultSet.getDate("end_military_date").toLocalDate())
                     .build();
             militaryLicenseEntityList.add(militaryLicenseEntity);
         }
@@ -92,7 +95,7 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
     @Override
     public MilitaryLicenseEntity findById(Integer id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM military_license WHERE id=?"
+                "SELECT * FROM military_license WHERE id=? AND is_deleted=0"
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -118,6 +121,6 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
-        log.info("MemberRepository Connection closed");
+        log.info("MilitaryLicenseRepository Connection closed");
     }
 }

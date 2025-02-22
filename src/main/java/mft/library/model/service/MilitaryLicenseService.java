@@ -7,6 +7,12 @@ import java.util.List;
 
 public class MilitaryLicenseService {
     public static void save(MilitaryLicenseEntity militaryLicenseEntity) throws Exception {
+        if (militaryLicenseEntity.getFirstName().isEmpty()){
+            throw new Exception("First name is empty");
+        }
+        if (militaryLicenseEntity.getLastName().isEmpty()){
+            throw new Exception("Last name is empty");
+        }
         if (!(militaryLicenseEntity.getStartMilitaryDate().getYear() >= 1980 && militaryLicenseEntity.getStartMilitaryDate().getYear() <= 2024)) {
             throw new Exception("Invalid start date");
         }
@@ -48,7 +54,7 @@ public class MilitaryLicenseService {
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
             List<MilitaryLicenseEntity> militaryLicenseList = militaryLicenseRepository.findAll();
             if (militaryLicenseList.isEmpty()) {
-                throw new Exception("Military license not found");
+                throw new Exception("Nothing found");
             }
             return militaryLicenseList;
         }
@@ -58,7 +64,7 @@ public class MilitaryLicenseService {
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
             MilitaryLicenseEntity militaryLicenseEntity = militaryLicenseRepository.findById(id);
             if (militaryLicenseEntity == null) {
-                throw new Exception("Member not found");
+                throw new Exception("No license found");
             }
             return militaryLicenseEntity;
         }
