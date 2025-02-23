@@ -20,8 +20,8 @@ public class JobHistory {
     private String person;
     private String job;
     private String company;
+    private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String description;
 
 }

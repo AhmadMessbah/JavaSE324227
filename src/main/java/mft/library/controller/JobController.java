@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mft.library.model.entity.JobHistory;
+import mft.library.model.entity.Member;
 import mft.library.model.service.JobService;
 import mft.library.model.service.MemberService;
 
@@ -30,10 +31,10 @@ public class JobController implements Initializable {
     private TableView<JobHistory> jobTable;
 
     @FXML
-    private TableColumn<Job, Integer> idCol,personCol,jobCol,companyCol,startDateCol,endDateCol;
+    private TableColumn<JobHistory, Integer> idCol;
 
     @FXML
-    private TableColumn<Job, String> jobCole;
+    private TableColumn<JobHistory, String> personCol,jobCol,companyCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -95,8 +96,34 @@ public class JobController implements Initializable {
             }
         });
 
+        personSearchTxt.setOnKeyReleased(event -> {
+            try{
+                refreshTable(JobService.findByPersonAndJob(personSearchTxt.getText() , jobSearchTxt.getText()));
+            }catch (Exception e){
+
+            }
+        });
+        jobSearchTxt.setOnKeyReleased(event -> {
+            try{
+                refreshTable(JobService.findByPersonAndJob(personSearchTxt.getText() , jobSearchTxt.getText()));
+            }catch (Exception e){
+
+            }
+        });
+
+        jobTable.setOnMouseReleased(event -> {
+            JobHistory jobHistory = jobTable.getSelectionModel().getSelectedItem();
+            idTxt.setText(String.valueOf(jobHistory.getId()));
+            personTxt.setText(jobHistory.getPerson());
+            jobTxt.setText(jobHistory.getJob());
+            startDate.setValue(jobHistory.getStartDate());
+            endDate.setValue(jobHistory.getEndDate());
+            descriptionTxt.setText(jobHistory.getDescription());
+        });
     }
-    private void resetForm() {
+
+
+private void resetForm() {
         idTxt.clear();
         personTxt.clear();
         jobTxt.clear();
