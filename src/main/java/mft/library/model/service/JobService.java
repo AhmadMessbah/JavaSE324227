@@ -56,9 +56,9 @@ public class JobService {
         }
     }
 
-    public static List<JobHistory> findByPersonAndJob(String person, String job) throws Exception {
+    public static List<JobHistory> findByJobAndFamily(String job, String family) throws Exception {
         try (JobRepository jobRepository = new JobRepository()) {
-            List<JobHistory> jobHistoryList = jobRepository.findByPersonAndJob(person, job);
+            List<JobHistory> jobHistoryList = jobRepository.findByJobAndFamily(job, family);
             if (jobHistoryList.isEmpty()) {
                 throw new Exception("No job history found");
             }

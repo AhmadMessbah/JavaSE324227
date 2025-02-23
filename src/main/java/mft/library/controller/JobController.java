@@ -43,7 +43,7 @@ public class JobController implements Initializable {
                 JobHistory jobHistory =
                         JobHistory
                         .builder()
-                        .person(personTxt.getText())
+//                        .person(personTxt.getText())
                         .job(jobTxt.getText())
                                 .startDate(startDate.getValue())
                                 .endDate(endDate.getValue())
@@ -66,7 +66,7 @@ public class JobController implements Initializable {
                         JobHistory
                         .builder()
                         .id(Integer.parseInt(idTxt.getText()))
-                        .person(personTxt.getText())
+//                        .person(personTxt.getText())
                         .job(jobTxt.getText())
                         .startDate(startDate.getValue())
                         .endDate(endDate.getValue())
@@ -97,7 +97,7 @@ public class JobController implements Initializable {
 
         personSearchTxt.setOnKeyReleased(event -> {
             try{
-                refreshTable(JobService.findByPersonAndJob(personSearchTxt.getText() , jobSearchTxt.getText()));
+//                refreshTable(JobService.findByPersonAndJob(personSearchTxt.getText() , jobSearchTxt.getText()));
             }catch (Exception e){
 
             }
@@ -105,7 +105,7 @@ public class JobController implements Initializable {
 
         jobSearchTxt.setOnKeyReleased(event -> {
             try{
-                refreshTable(JobService.findByPersonAndJob(personSearchTxt.getText() , jobSearchTxt.getText()));
+//                refreshTable(JobService.findByPersonAndJob(personSearchTxt.getText() , jobSearchTxt.getText()));
             }catch (Exception e){
 
             }
@@ -114,7 +114,7 @@ public class JobController implements Initializable {
         jobTable.setOnMouseReleased(event -> {
             JobHistory jobHistory = jobTable.getSelectionModel().getSelectedItem();
             idTxt.setText(String.valueOf(jobHistory.getId()));
-            personTxt.setText(jobHistory.getPerson());
+//            personTxt.setText(jobHistory.getPerson());
             jobTxt.setText(jobHistory.getJob());
             startDate.setValue(jobHistory.getStartDate());
             endDate.setValue(jobHistory.getEndDate());

@@ -17,10 +17,10 @@ import java.time.LocalDate;
 
 public class JobHistory {
     private int id;
-    private String person;
     private String job;
     private String company;
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
+    private Person person;
 }

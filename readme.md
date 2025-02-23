@@ -14,7 +14,7 @@ Tasks : (Entity, Repository, Service, Test, Controller, View)
     +++ AmirMohammad Hidaji  --> JobHistory (id, person, job, company, startDate, endDate, description)
     ??? Fatemeh Jebreili     --> InsuranceHistory (id, person, insuranceId, company, startDate, endDate, salary)
     ??? Behnaz Mohammadi     --> Employment (id, person, department, job, salary, startDate, endDate)
-    --5 Arian Mahshadi       --> 
+    --5 Arian Mahshadi       --> SimCard (id, person, operator, number, charge, date_time, status)
 
 
 

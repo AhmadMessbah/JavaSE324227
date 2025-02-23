@@ -22,7 +22,7 @@ public class PersonRepository implements Repository <Person, Integer>{
         ConnectionProvider connectionProvider = new ConnectionProvider();
         person.setId(connectionProvider.nextId("member_seq"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO MEMBERS (ID, NAME, FAMILY, BIRTH_DATE, USERNAME, PASSWORD, IS_ACTIVE) VALUES (?,?,?,?,?,?,?)"
+                "INSERT INTO PERSONS (P_ID, NAME, FAMILY, BIRTH_DATE, USERNAME, PASSWORD, IS_ACTIVE) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, person.getId());
         preparedStatement.setString(2, person.getName());
@@ -37,7 +37,7 @@ public class PersonRepository implements Repository <Person, Integer>{
     @Override
     public void edit(Person person) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE MEMBERS SET NAME=?, FAMILY=?, BIRTH_DATE=?, PASSWORD=?, IS_ACTIVE=? WHERE ID=?"
+                "UPDATE PERSONS SET NAME=?, FAMILY=?, BIRTH_DATE=?, PASSWORD=?, IS_ACTIVE=? WHERE P_ID=?"
         );
         preparedStatement.setString(1, person.getName());
         preparedStatement.setString(2, person.getFamily());
@@ -51,7 +51,7 @@ public class PersonRepository implements Repository <Person, Integer>{
     @Override
     public void remove(Integer id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM MEMBERS WHERE ID=?"
+                "DELETE FROM PERSONS WHERE P_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -60,7 +60,7 @@ public class PersonRepository implements Repository <Person, Integer>{
     @Override
     public List<Person> findAll() throws Exception {
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM MEMBERS ORDER BY FAMILY, NAME"
+                "SELECT * FROM PERSONS ORDER BY FAMILY, NAME"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -68,7 +68,7 @@ public class PersonRepository implements Repository <Person, Integer>{
         while(resultSet.next()) {
             Person person = Person
                     .builder()
-                    .id(resultSet.getInt("ID"))
+                    .id(resultSet.getInt("P_ID"))
                     .name(resultSet.getString("NAME"))
                     .family(resultSet.getString("FAMILY"))
                     .birthDate(resultSet.getDate("BIRTH_DATE").toLocalDate())
@@ -84,7 +84,7 @@ public class PersonRepository implements Repository <Person, Integer>{
     @Override
     public Person findById(Integer id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM MEMBERS WHERE ID=?"
+                "SELECT * FROM PERSONS WHERE P_ID=?"
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -93,7 +93,7 @@ public class PersonRepository implements Repository <Person, Integer>{
         if(resultSet.next()) {
              person = Person
                     .builder()
-                    .id(resultSet.getInt("ID"))
+                    .id(resultSet.getInt("P_ID"))
                     .name(resultSet.getString("NAME"))
                     .family(resultSet.getString("FAMILY"))
                     .birthDate(resultSet.getDate("BIRTH_DATE").toLocalDate())
@@ -107,7 +107,7 @@ public class PersonRepository implements Repository <Person, Integer>{
 
     public List<Person> findByNameAndFamily(String name, String family) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM MEMBERS WHERE NAME LIKE ? AND FAMILY LIKE ? ORDER BY FAMILY, NAME"
+                "SELECT * FROM PERSONS WHERE NAME LIKE ? AND FAMILY LIKE ? ORDER BY FAMILY, NAME"
         );
         preparedStatement.setString(1,  name + "%");
         preparedStatement.setString(2,  family + "%");
@@ -117,7 +117,7 @@ public class PersonRepository implements Repository <Person, Integer>{
         while(resultSet.next()) {
             Person person = Person
                     .builder()
-                    .id(resultSet.getInt("ID"))
+                    .id(resultSet.getInt("P_ID"))
                     .name(resultSet.getString("NAME"))
                     .family(resultSet.getString("FAMILY"))
                     .birthDate(resultSet.getDate("BIRTH_DATE").toLocalDate())
@@ -134,6 +134,5 @@ public class PersonRepository implements Repository <Person, Integer>{
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
-        log.info("MemberRepository Connection closed");
     }
 }

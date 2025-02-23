@@ -1,4 +1,4 @@
-create table members
+create table persons
 (
     id         number primary key,
     name       nvarchar2(30) not null,
