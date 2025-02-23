@@ -1,45 +1,43 @@
 package mft.library.model.service;
 
-import mft.library.model.entity.MilitaryLicenseEntity;
+import mft.library.model.entity.MilitaryLicense;
 import mft.library.model.repository.MilitaryLicenseRepository;
 
 import java.util.List;
 
 public class MilitaryLicenseService {
-    public static void save(MilitaryLicenseEntity militaryLicenseEntity) throws Exception {
-        if (militaryLicenseEntity.getFirstName().isEmpty()){
+    public static void save(MilitaryLicense militaryLicense) throws Exception {
+        if (militaryLicense.getFirstName().isEmpty()){
             throw new Exception("First name is empty");
         }
-        if (militaryLicenseEntity.getLastName().isEmpty()){
-            throw new Exception("Last name is empty");
-        }
-        if (!(militaryLicenseEntity.getStartMilitaryDate().getYear() >= 1980 && militaryLicenseEntity.getStartMilitaryDate().getYear() <= 2024)) {
+
+        if (!(militaryLicense.getStartMilitaryDate().getYear() >= 1980 && militaryLicense.getStartMilitaryDate().getYear() <= 2024)) {
             throw new Exception("Invalid start date");
         }
-        if (!(militaryLicenseEntity.getEndMilitaryDate().getYear() >= 1980 && militaryLicenseEntity.getEndMilitaryDate().getYear() <= 2024)) {
+        if (!(militaryLicense.getEndMilitaryDate().getYear() >= 1980 && militaryLicense.getEndMilitaryDate().getYear() <= 2024)) {
             throw new Exception("Invalid end date");
         }
-        if (militaryLicenseEntity.getStartMilitaryDate().getYear() > militaryLicenseEntity.getEndMilitaryDate().getYear()) {
+        if (militaryLicense.getStartMilitaryDate().getYear() > militaryLicense.getEndMilitaryDate().getYear()) {
             throw new Exception("Start date cannot be greater than end date ");
         }
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
-            militaryLicenseRepository.save(militaryLicenseEntity);
+            militaryLicenseRepository.save(militaryLicense);
         }
     }
 
-    public static void edit(MilitaryLicenseEntity militaryLicenseEntity) throws Exception {
-        findById(militaryLicenseEntity.getId());
-        if (!(militaryLicenseEntity.getStartMilitaryDate().getYear() >= 1980 && militaryLicenseEntity.getStartMilitaryDate().getYear() <= 2024)) {
+    public static void edit(MilitaryLicense militaryLicense) throws Exception {
+        findById(militaryLicense.getId());
+        if (!(militaryLicense.getStartMilitaryDate().getYear() >= 1980 && militaryLicense.getStartMilitaryDate().getYear() <= 2024)) {
             throw new Exception("Invalid start date");
         }
-        if (!(militaryLicenseEntity.getEndMilitaryDate().getYear() >= 1980 && militaryLicenseEntity.getEndMilitaryDate().getYear() <= 2024)) {
+        if (!(militaryLicense.getEndMilitaryDate().getYear() >= 1980 && militaryLicense.getEndMilitaryDate().getYear() <= 2024)) {
             throw new Exception("Invalid end date");
         }
-        if (militaryLicenseEntity.getStartMilitaryDate().getYear() > militaryLicenseEntity.getEndMilitaryDate().getYear()) {
+        if (militaryLicense.getStartMilitaryDate().getYear() > militaryLicense.getEndMilitaryDate().getYear()) {
             throw new Exception("Start date cannot be greater than end date ");
         }
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
-            militaryLicenseRepository.edit(militaryLicenseEntity);
+            militaryLicenseRepository.edit(militaryLicense);
         }
     }
 
@@ -50,9 +48,9 @@ public class MilitaryLicenseService {
         }
     }
 
-    public static List<MilitaryLicenseEntity> findAll() throws Exception {
+    public static List<MilitaryLicense> findAll() throws Exception {
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
-            List<MilitaryLicenseEntity> militaryLicenseList = militaryLicenseRepository.findAll();
+            List<MilitaryLicense> militaryLicenseList = militaryLicenseRepository.findAll();
             if (militaryLicenseList.isEmpty()) {
                 throw new Exception("Nothing found");
             }
@@ -60,13 +58,13 @@ public class MilitaryLicenseService {
         }
     }
 
-    public static MilitaryLicenseEntity findById(int id) throws Exception {
+    public static MilitaryLicense findById(int id) throws Exception {
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
-            MilitaryLicenseEntity militaryLicenseEntity = militaryLicenseRepository.findById(id);
-            if (militaryLicenseEntity == null) {
+            MilitaryLicense militaryLicense = militaryLicenseRepository.findById(id);
+            if (militaryLicense == null) {
                 throw new Exception("No license found");
             }
-            return militaryLicenseEntity;
+            return militaryLicense;
         }
     }
 }

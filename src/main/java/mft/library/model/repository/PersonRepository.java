@@ -1,51 +1,50 @@
 package mft.library.model.repository;
 
 import lombok.extern.log4j.Log4j;
-import mft.library.model.entity.Member;
+import mft.library.model.entity.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Log4j
-public class MemberRepository implements Repository <Member, Integer>{
+public class PersonRepository implements Repository <Person, Integer>{
     private Connection connection;
     private PreparedStatement preparedStatement;
 
-    public MemberRepository() throws Exception {
+    public PersonRepository() throws Exception {
         ConnectionProvider connectionProvider = new ConnectionProvider();
         connection = connectionProvider.getConnection();
     }
 
     @Override
-    public void save(Member member) throws Exception {
+    public void save(Person person) throws Exception {
         ConnectionProvider connectionProvider = new ConnectionProvider();
-        member.setId(connectionProvider.nextId("member_seq"));
+        person.setId(connectionProvider.nextId("member_seq"));
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO MEMBERS (ID, NAME, FAMILY, BIRTH_DATE, USERNAME, PASSWORD, IS_ACTIVE) VALUES (?,?,?,?,?,?,?)"
         );
-        preparedStatement.setInt(1, member.getId());
-        preparedStatement.setString(2, member.getName());
-        preparedStatement.setString(3, member.getFamily());
-        preparedStatement.setDate(4, Date.valueOf(member.getBirthDate()));
-        preparedStatement.setString(5, member.getUsername());
-        preparedStatement.setString(6, member.getPassword());
-        preparedStatement.setBoolean(7, member.isActive());
+        preparedStatement.setInt(1, person.getId());
+        preparedStatement.setString(2, person.getName());
+        preparedStatement.setString(3, person.getFamily());
+        preparedStatement.setDate(4, Date.valueOf(person.getBirthDate()));
+        preparedStatement.setString(5, person.getUsername());
+        preparedStatement.setString(6, person.getPassword());
+        preparedStatement.setBoolean(7, person.isActive());
         preparedStatement.execute();
     }
 
     @Override
-    public void edit(Member member) throws Exception {
+    public void edit(Person person) throws Exception {
         preparedStatement = connection.prepareStatement(
                 "UPDATE MEMBERS SET NAME=?, FAMILY=?, BIRTH_DATE=?, PASSWORD=?, IS_ACTIVE=? WHERE ID=?"
         );
-        preparedStatement.setString(1, member.getName());
-        preparedStatement.setString(2, member.getFamily());
-        preparedStatement.setDate(3, Date.valueOf(member.getBirthDate()));
-        preparedStatement.setString(4, member.getPassword());
-        preparedStatement.setBoolean(5, member.isActive());
-        preparedStatement.setInt(6, member.getId());
+        preparedStatement.setString(1, person.getName());
+        preparedStatement.setString(2, person.getFamily());
+        preparedStatement.setDate(3, Date.valueOf(person.getBirthDate()));
+        preparedStatement.setString(4, person.getPassword());
+        preparedStatement.setBoolean(5, person.isActive());
+        preparedStatement.setInt(6, person.getId());
         preparedStatement.execute();
     }
 
@@ -59,15 +58,15 @@ public class MemberRepository implements Repository <Member, Integer>{
     }
 
     @Override
-    public List<Member> findAll() throws Exception {
+    public List<Person> findAll() throws Exception {
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM MEMBERS ORDER BY FAMILY, NAME"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        List<Member> memberList = new ArrayList<>();
+        List<Person> personList = new ArrayList<>();
         while(resultSet.next()) {
-            Member member = Member
+            Person person = Person
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
@@ -77,22 +76,22 @@ public class MemberRepository implements Repository <Member, Integer>{
                     .password(resultSet.getString("PASSWORD"))
                     .active(resultSet.getBoolean("IS_ACTIVE"))
                     .build();
-            memberList.add(member);
+            personList.add(person);
         }
-        return memberList;
+        return personList;
     }
 
     @Override
-    public Member findById(Integer id) throws Exception {
+    public Person findById(Integer id) throws Exception {
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM MEMBERS WHERE ID=?"
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        Member member = null;
+        Person person = null;
         if(resultSet.next()) {
-             member = Member
+             person = Person
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
@@ -103,10 +102,10 @@ public class MemberRepository implements Repository <Member, Integer>{
                     .active(resultSet.getBoolean("IS_ACTIVE"))
                     .build();
         }
-        return member;
+        return person;
     }
 
-    public List<Member> findByNameAndFamily(String name, String family) throws Exception {
+    public List<Person> findByNameAndFamily(String name, String family) throws Exception {
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM MEMBERS WHERE NAME LIKE ? AND FAMILY LIKE ? ORDER BY FAMILY, NAME"
         );
@@ -114,9 +113,9 @@ public class MemberRepository implements Repository <Member, Integer>{
         preparedStatement.setString(2,  family + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        List<Member> memberList = new ArrayList<>();
+        List<Person> personList = new ArrayList<>();
         while(resultSet.next()) {
-            Member member = Member
+            Person person = Person
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
@@ -126,9 +125,9 @@ public class MemberRepository implements Repository <Member, Integer>{
                     .password(resultSet.getString("PASSWORD"))
                     .active(resultSet.getBoolean("IS_ACTIVE"))
                     .build();
-            memberList.add(member);
+            personList.add(person);
         }
-        return memberList;
+        return personList;
     }
 
     @Override

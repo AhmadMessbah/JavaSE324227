@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class MilitaryLicenseEntity {
+public class MilitaryLicense {
     //militaryId, person, startMilitaryDate, endMilitaryDate, type, city
     private int id;
     private int militaryId;

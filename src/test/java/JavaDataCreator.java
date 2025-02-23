@@ -1,14 +1,3 @@
-import com.github.javafaker.Faker;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
-import mft.library.model.entity.Member;
-import mft.library.model.repository.MemberRepository;
-import mft.library.model.service.MemberService;
-import org.apache.log4j.Logger;
-
-import java.time.LocalDate;
-
-
 public class JavaDataCreator {
 //    static Logger logger = Logger.getLogger(JavaDataCreator.class);
 

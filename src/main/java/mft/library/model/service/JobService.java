@@ -44,33 +44,6 @@ public class JobService {
             return jobHistories;
         }
     }
-//        public static void remove(int id)throws Exception {
-//            findById(id);
-//            try (JobRepository jobRepository = new JobRepository()) {
-//                jobRepository.remove(id);
-//            }
-//        }
-
-//    public static List<JobHistory> findAll() throws Exception {
-//        try (JobRepository jobRepository = new JobRepository()) {
-//            List<JobHistory> jobHistoryList = jobRepository.findAll();
-//            if (jobHistoryList.isEmpty()) {
-//                throw new Exception("No job history found");
-//            }
-//        return jobHistoryList;
-//        }
-//
-//    }
-
-
-//    public static List<JobHistory> findAll() throws Exception {
-//        try (JobRepository memberRepository = new JobRepository()) {
-//            List<JobHistory> jobList = JobRepository.findAll();
-//            if (jobList.isEmpty()) {
-//                throw new Exception("Job not found");
-//            }
-//            return ;
-//        }
 
 
     public static JobHistory findById(int id) throws Exception {
@@ -82,6 +55,7 @@ public class JobService {
             return jobHistory;
         }
     }
+
     public static List<JobHistory> findByPersonAndJob(String person, String job) throws Exception {
         try (JobRepository jobRepository = new JobRepository()) {
             List<JobHistory> jobHistoryList = jobRepository.findByPersonAndJob(person, job);

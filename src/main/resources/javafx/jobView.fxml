@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<Pane fx:controller="mft.library.controller.JobController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mft.library.controller.JobController">
     <children>
         <GridPane layoutX="28.0" layoutY="25.0" prefHeight="254.0" prefWidth="222.0">
             <columnConstraints>
@@ -35,16 +34,16 @@
                 <Label text="Person" GridPane.rowIndex="1" />
                 <Label text="Job" GridPane.rowIndex="2" />
                 <Label text="Company" GridPane.rowIndex="3" />
-                <Label text="Description" GridPane.rowIndex="6" />
-                <TextField fx:id="personTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="idTxt" GridPane.columnIndex="1" />
-                <TextField fx:id="jobTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="companyTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="descriptionTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <DatePicker fx:id="startDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <DatePicker fx:id="endDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <Label text="StartDate" GridPane.rowIndex="4" />
                 <Label text="EndDate" GridPane.rowIndex="5" />
+                <Label text="Description" GridPane.rowIndex="6" />
+                <TextField fx:id="idTxt" disable="true" GridPane.columnIndex="1" />
+                <TextField fx:id="personTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="jobTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="companyTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <DatePicker fx:id="startDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <DatePicker fx:id="endDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <TextField fx:id="descriptionTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             </children>
         </GridPane>
         <HBox layoutX="28.0" layoutY="312.0" prefHeight="25.0" prefWidth="222.0">

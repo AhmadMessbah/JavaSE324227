@@ -35,7 +35,7 @@ public class JobRepository implements Repository<JobHistory, Integer> {
     @Override
     public void edit(JobHistory jobHistory) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "update JOBS SET PERSON=? , JOB =?,COMPANY=?,DESCRIPTION=?,START_DATE=?,END_DATE=? where id=?"
+                "update JOBS SET PERSON=?, JOB =?, COMPANY=?, DESCRIPTION=?, START_DATE=?, END_DATE=? where id=?"
         );
         preparedStatement.setString(1, jobHistory.getPerson());
         preparedStatement.setString(2, jobHistory.getJob());

@@ -1,7 +1,7 @@
 package mft.library.model.repository;
 
 import lombok.extern.log4j.Log4j;
-import mft.library.model.entity.MilitaryLicenseEntity;
+import mft.library.model.entity.MilitaryLicense;
 import mft.library.model.entity.enums.Province;
 import mft.library.model.entity.enums.MilitaryType;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Log4j
-public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEntity, Integer> {
+public class MilitaryLicenseRepository implements Repository<MilitaryLicense, Integer> {
     private Connection connection;
     private PreparedStatement preparedStatement;
 
@@ -24,36 +24,36 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
     }
 
     @Override
-    public void save(MilitaryLicenseEntity militaryLicenseEntity) throws Exception {
+    public void save(MilitaryLicense militaryLicense) throws Exception {
 //        ConnectionProvider connectionProvider = new ConnectionProvider();
 //        militaryLicenseEntity.setId(connectionProvider.nextId("military_license_seq"));
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO military_license (military_id, first_name, last_name, military_type, province, start_military_date, end_military_date)" +
                         " VALUES (?,?,?,?,?,?,?)"
         );
-        preparedStatement.setInt(1, militaryLicenseEntity.getMilitaryId());
-        preparedStatement.setString(2, militaryLicenseEntity.getFirstName());
-        preparedStatement.setString(3, militaryLicenseEntity.getLastName());
-        preparedStatement.setString(4, String.valueOf(militaryLicenseEntity.getType()));
-        preparedStatement.setString(5, String.valueOf(militaryLicenseEntity.getProvince()));
-        preparedStatement.setDate(6, Date.valueOf(militaryLicenseEntity.getStartMilitaryDate()));
-        preparedStatement.setDate(7, Date.valueOf(militaryLicenseEntity.getEndMilitaryDate()));
+        preparedStatement.setInt(1, militaryLicense.getMilitaryId());
+        preparedStatement.setString(2, militaryLicense.getFirstName());
+        preparedStatement.setString(3, militaryLicense.getLastName());
+        preparedStatement.setString(4, String.valueOf(militaryLicense.getType()));
+        preparedStatement.setString(5, String.valueOf(militaryLicense.getProvince()));
+        preparedStatement.setDate(6, Date.valueOf(militaryLicense.getStartMilitaryDate()));
+        preparedStatement.setDate(7, Date.valueOf(militaryLicense.getEndMilitaryDate()));
         preparedStatement.execute();
     }
 
     @Override
-    public void edit(MilitaryLicenseEntity militaryLicenseEntity) throws Exception {
+    public void edit(MilitaryLicense militaryLicense) throws Exception {
         preparedStatement = connection.prepareStatement(
                 "UPDATE military_license SET military_id=?, first_name=?, last_name=?, military_type=?, province=?, start_military_date=?, end_military_date=? WHERE id=?"
         );
-        preparedStatement.setInt(1, militaryLicenseEntity.getMilitaryId());
-        preparedStatement.setString(2, militaryLicenseEntity.getFirstName());
-        preparedStatement.setString(3, militaryLicenseEntity.getLastName());
-        preparedStatement.setString(4, String.valueOf(militaryLicenseEntity.getType()));
-        preparedStatement.setString(5, String.valueOf(militaryLicenseEntity.getProvince()));
-        preparedStatement.setDate(6, Date.valueOf(militaryLicenseEntity.getStartMilitaryDate()));
-        preparedStatement.setDate(7, Date.valueOf(militaryLicenseEntity.getEndMilitaryDate()));
-        preparedStatement.setInt(8, militaryLicenseEntity.getId());
+        preparedStatement.setInt(1, militaryLicense.getMilitaryId());
+        preparedStatement.setString(2, militaryLicense.getFirstName());
+        preparedStatement.setString(3, militaryLicense.getLastName());
+        preparedStatement.setString(4, String.valueOf(militaryLicense.getType()));
+        preparedStatement.setString(5, String.valueOf(militaryLicense.getProvince()));
+        preparedStatement.setDate(6, Date.valueOf(militaryLicense.getStartMilitaryDate()));
+        preparedStatement.setDate(7, Date.valueOf(militaryLicense.getEndMilitaryDate()));
+        preparedStatement.setInt(8, militaryLicense.getId());
         preparedStatement.execute();
     }
 
@@ -67,15 +67,15 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
     }
 
     @Override
-    public List<MilitaryLicenseEntity> findAll() throws Exception {
+    public List<MilitaryLicense> findAll() throws Exception {
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM military_license WHERE is_deleted = 0 ORDER BY id"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        List<MilitaryLicenseEntity> militaryLicenseEntityList = new ArrayList<>();
+        List<MilitaryLicense> militaryLicenseList = new ArrayList<>();
         while (resultSet.next()) {
-            MilitaryLicenseEntity militaryLicenseEntity = MilitaryLicenseEntity
+            MilitaryLicense militaryLicense = MilitaryLicense
                     .builder()
                     .id(resultSet.getInt("id"))
                     .militaryId(resultSet.getInt("military_id"))
@@ -87,22 +87,22 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
                     .type(MilitaryType.valueOf(resultSet.getString("military_type")))
                     .endMilitaryDate(resultSet.getDate("end_military_date").toLocalDate())
                     .build();
-            militaryLicenseEntityList.add(militaryLicenseEntity);
+            militaryLicenseList.add(militaryLicense);
         }
-        return militaryLicenseEntityList;
+        return militaryLicenseList;
     }
 
     @Override
-    public MilitaryLicenseEntity findById(Integer id) throws Exception {
+    public MilitaryLicense findById(Integer id) throws Exception {
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM military_license WHERE id=? AND is_deleted=0"
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        MilitaryLicenseEntity militaryLicenseEntity = null;
+        MilitaryLicense militaryLicense = null;
         if (resultSet.next()) {
-            militaryLicenseEntity = MilitaryLicenseEntity
+            militaryLicense = MilitaryLicense
                     .builder()
                     .id(resultSet.getInt("id"))
                     .militaryId(resultSet.getInt("military_id"))
@@ -114,7 +114,7 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicenseEnti
                     .endMilitaryDate(resultSet.getDate("end_military_date").toLocalDate())
                     .build();
         }
-        return militaryLicenseEntity;
+        return militaryLicense;
     }
 
     @Override

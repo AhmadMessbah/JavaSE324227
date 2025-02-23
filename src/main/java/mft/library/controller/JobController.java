@@ -1,6 +1,5 @@
 package mft.library.controller;
 
-import com.github.javafaker.Job;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,9 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mft.library.model.entity.JobHistory;
-import mft.library.model.entity.Member;
 import mft.library.model.service.JobService;
-import mft.library.model.service.MemberService;
+import mft.library.model.service.PersonService;
 
 import java.net.URL;
 import java.util.List;
@@ -42,7 +40,6 @@ public class JobController implements Initializable {
 
         saveBtn.setOnAction(event -> {
             try {
-//                Member member = Member
                 JobHistory jobHistory =
                         JobHistory
                         .builder()
@@ -62,6 +59,7 @@ public class JobController implements Initializable {
                 alert.show();
             }
         });
+
         editBtn.setOnAction(event -> {
             try {
                 JobHistory jobHistory =
@@ -84,9 +82,10 @@ public class JobController implements Initializable {
                 alert.show();
             }
         });
+
         removeBtn.setOnAction(event -> {
             try {
-                MemberService.remove(Integer.parseInt(idTxt.getText()));
+                PersonService.remove(Integer.parseInt(idTxt.getText()));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Member Removed", ButtonType.OK);
                 alert.show();
                 resetForm();
@@ -103,6 +102,7 @@ public class JobController implements Initializable {
 
             }
         });
+
         jobSearchTxt.setOnKeyReleased(event -> {
             try{
                 refreshTable(JobService.findByPersonAndJob(personSearchTxt.getText() , jobSearchTxt.getText()));

@@ -11,7 +11,7 @@ public class MemberApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         log.info("Starting Application");
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/javafx/memberView.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/javafx/personView.fxml")));
         primaryStage.setScene(scene);
         primaryStage.setTitle("Member Info");
         primaryStage.show();

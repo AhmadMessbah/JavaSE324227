@@ -23,5 +23,4 @@ public class JobHistory {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-
 }

@@ -7,15 +7,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
-import mft.library.model.entity.Member;
-import mft.library.model.service.MemberService;
+import mft.library.model.entity.Person;
+import mft.library.model.service.PersonService;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 @Log4j
-public class MemberController implements Initializable {
+public class PersonController implements Initializable {
     @FXML
     private TextField idTxt, nameTxt, familyTxt, userTxt, nameSearchTxt, familySearchTxt;
 
@@ -35,13 +35,13 @@ public class MemberController implements Initializable {
     private ToggleGroup activeToggleGroup;
 
     @FXML
-    private TableView<Member> memberTable;
+    private TableView<Person> personTable;
 
     @FXML
-    private TableColumn<Member, Integer> idCol;
+    private TableColumn<Person, Integer> idCol;
 
     @FXML
-    private TableColumn<Member, String> nameCol, familyCol, userCol;
+    private TableColumn<Person, String> nameCol, familyCol, userCol;
 
 
     @Override
@@ -51,7 +51,7 @@ public class MemberController implements Initializable {
 
         saveBtn.setOnAction(event -> {
             try {
-                Member member = Member
+                Person person = Person
                         .builder()
                         .name(nameTxt.getText())
                         .family(familyTxt.getText())
@@ -60,11 +60,11 @@ public class MemberController implements Initializable {
                         .password(passTxt.getText())
                         .active(activeRdo.isSelected())
                         .build();
-                MemberService.save(member);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Member Saved : " + member, ButtonType.OK);
+                PersonService.save(person);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Member Saved : " + person, ButtonType.OK);
                 alert.show();
                 resetForm();
-                log.info("Member Saved : " + member);
+                log.info("Member Saved : " + person);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
                 alert.show();
@@ -73,7 +73,7 @@ public class MemberController implements Initializable {
         });
         editBtn.setOnAction(event -> {
             try {
-                Member member = Member
+                Person person = Person
                         .builder()
                         .id(Integer.parseInt(idTxt.getText()))
                         .name(nameTxt.getText())
@@ -83,11 +83,11 @@ public class MemberController implements Initializable {
                         .password(passTxt.getText())
                         .active(activeRdo.isSelected())
                         .build();
-                MemberService.edit(member);
+                PersonService.edit(person);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Member Edited", ButtonType.OK);
                 alert.show();
                 resetForm();
-                log.info("Member Edited : " + member);
+                log.info("Member Edited : " + person);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
                 alert.show();
@@ -96,7 +96,7 @@ public class MemberController implements Initializable {
         });
         removeBtn.setOnAction(event -> {
             try {
-                MemberService.remove(Integer.parseInt(idTxt.getText()));
+                PersonService.remove(Integer.parseInt(idTxt.getText()));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Member Removed", ButtonType.OK);
                 alert.show();
                 resetForm();
@@ -110,28 +110,28 @@ public class MemberController implements Initializable {
 
         nameSearchTxt.setOnKeyReleased(event -> {
             try{
-                refreshTable(MemberService.findByNameAndFamily(nameSearchTxt.getText() , familySearchTxt.getText()));
+                refreshTable(PersonService.findByNameAndFamily(nameSearchTxt.getText() , familySearchTxt.getText()));
             }catch (Exception e){
                 log.error(e);
             }
         });
         familySearchTxt.setOnKeyReleased(event -> {
             try{
-                refreshTable(MemberService.findByNameAndFamily(nameSearchTxt.getText() , familySearchTxt.getText()));
+                refreshTable(PersonService.findByNameAndFamily(nameSearchTxt.getText() , familySearchTxt.getText()));
             }catch (Exception e){
                 log.error(e);
             }
         });
 
-        memberTable.setOnMouseReleased(event -> {
-            Member member = memberTable.getSelectionModel().getSelectedItem();
-            idTxt.setText(String.valueOf(member.getId()));
-            nameTxt.setText(member.getName());
-            familyTxt.setText(member.getFamily());
-            birthDate.setValue(member.getBirthDate());
-            userTxt.setText(member.getUsername());
-            passTxt.setText(member.getPassword());
-            if (member.isActive()) {
+        personTable.setOnMouseReleased(event -> {
+            Person person = personTable.getSelectionModel().getSelectedItem();
+            idTxt.setText(String.valueOf(person.getId()));
+            nameTxt.setText(person.getName());
+            familyTxt.setText(person.getFamily());
+            birthDate.setValue(person.getBirthDate());
+            userTxt.setText(person.getUsername());
+            passTxt.setText(person.getPassword());
+            if (person.isActive()) {
                 activeRdo.setSelected(true);
                 disableRdo.setSelected(false);
             } else {
@@ -152,22 +152,22 @@ public class MemberController implements Initializable {
         nameSearchTxt.clear();
         familySearchTxt.clear();
         try {
-            refreshTable(MemberService.findAll());
+            refreshTable(PersonService.findAll());
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
             alert.show();
         }
     }
 
-    private void refreshTable(List<Member> memberList) {
-        ObservableList<Member> memberObservableList = FXCollections.observableArrayList(memberList);
-        memberTable.getItems().clear();
+    private void refreshTable(List<Person> personList) {
+        ObservableList<Person> personObservableList = FXCollections.observableArrayList(personList);
+        personTable.getItems().clear();
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         familyCol.setCellValueFactory(new PropertyValueFactory<>("family"));
         userCol.setCellValueFactory(new PropertyValueFactory<>("username"));
 
-        memberTable.setItems(memberObservableList);
+        personTable.setItems(personObservableList);
     }
 }

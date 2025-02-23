@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
-import mft.library.model.entity.MilitaryLicenseEntity;
+import mft.library.model.entity.MilitaryLicense;
 import mft.library.model.entity.enums.MilitaryType;
 import mft.library.model.entity.enums.Province;
 import mft.library.model.service.MilitaryLicenseService;
@@ -35,13 +35,13 @@ public class MilitaryLicenseController implements Initializable {
     private ComboBox<MilitaryType> militaryTypeComboBox; //Enum class
 
     @FXML
-    private TableView<MilitaryLicenseEntity> militaryLicenseTable;
+    private TableView<MilitaryLicense> militaryLicenseTable;
 
     @FXML
-    private TableColumn<MilitaryLicenseEntity, Integer> idCol, militaryIdCol;
+    private TableColumn<MilitaryLicense, Integer> idCol, militaryIdCol;
 
     @FXML
-    private TableColumn<MilitaryLicenseEntity, String> firstNameCol, lastNameCol;
+    private TableColumn<MilitaryLicense, String> firstNameCol, lastNameCol;
 
 
     @Override
@@ -68,7 +68,7 @@ public class MilitaryLicenseController implements Initializable {
 
         saveBtn.setOnAction(event -> {
             try {
-                MilitaryLicenseEntity militaryLicenseEntity = MilitaryLicenseEntity
+                MilitaryLicense militaryLicense = MilitaryLicense
                         .builder()
                         .militaryId(Integer.parseInt(militaryId.getText()))
                         .firstName(firstName.getText())
@@ -78,11 +78,11 @@ public class MilitaryLicenseController implements Initializable {
                         .type(militaryTypeComboBox.getValue())
                         .province(provinceComboBox.getValue())
                         .build();
-                MilitaryLicenseService.save(militaryLicenseEntity);
+                MilitaryLicenseService.save(militaryLicense);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "New License Saved ", ButtonType.OK);
                 alert.show();
                 resetForm();
-                log.info("License Saved : " + militaryLicenseEntity);
+                log.info("License Saved : " + militaryLicense);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
                 alert.show();
@@ -91,7 +91,7 @@ public class MilitaryLicenseController implements Initializable {
         });
         updateBtn.setOnAction(event -> {
             try {
-                MilitaryLicenseEntity militaryLicenseEntity = MilitaryLicenseEntity
+                MilitaryLicense militaryLicense = MilitaryLicense
                         .builder()
                         .id(Integer.parseInt(id.getText()))
                         .firstName(firstName.getText())
@@ -101,11 +101,11 @@ public class MilitaryLicenseController implements Initializable {
                         .province(provinceComboBox.getValue())
                         .type(militaryTypeComboBox.getValue())
                         .build();
-                MilitaryLicenseService.edit(militaryLicenseEntity);
+                MilitaryLicenseService.edit(militaryLicense);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "License Updated", ButtonType.OK);
                 alert.show();
                 resetForm();
-                log.info("License Updated : " + militaryLicenseEntity);
+                log.info("License Updated : " + militaryLicense);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
                 alert.show();
@@ -147,16 +147,16 @@ public class MilitaryLicenseController implements Initializable {
         });*/
 
         militaryLicenseTable.setOnMouseReleased(event -> {
-            MilitaryLicenseEntity militaryLicenseEntity = militaryLicenseTable.getSelectionModel().getSelectedItem();
-            if (militaryLicenseEntity != null) {
-                id.setText(String.valueOf(militaryLicenseEntity.getId()));
-                militaryId.setText(String.valueOf(militaryLicenseEntity.getMilitaryId()));
-                firstName.setText(militaryLicenseEntity.getFirstName());
-                lastName.setText(militaryLicenseEntity.getLastName());
-                startDate.setValue(militaryLicenseEntity.getStartMilitaryDate());
-                endDate.setValue(militaryLicenseEntity.getEndMilitaryDate());
-                provinceComboBox.getSelectionModel().select(militaryLicenseEntity.getProvince());
-                militaryTypeComboBox.getSelectionModel().select(militaryLicenseEntity.getType());
+            MilitaryLicense militaryLicense = militaryLicenseTable.getSelectionModel().getSelectedItem();
+            if (militaryLicense != null) {
+                id.setText(String.valueOf(militaryLicense.getId()));
+                militaryId.setText(String.valueOf(militaryLicense.getMilitaryId()));
+                firstName.setText(militaryLicense.getFirstName());
+                lastName.setText(militaryLicense.getLastName());
+                startDate.setValue(militaryLicense.getStartMilitaryDate());
+                endDate.setValue(militaryLicense.getEndMilitaryDate());
+                provinceComboBox.getSelectionModel().select(militaryLicense.getProvince());
+                militaryTypeComboBox.getSelectionModel().select(militaryLicense.getType());
             }
         });
 
@@ -183,8 +183,8 @@ public class MilitaryLicenseController implements Initializable {
         }
     }
 
-    private void refreshTable(List<MilitaryLicenseEntity> militaryLicenseList) {
-        ObservableList<MilitaryLicenseEntity> militaryLicenseObservableList = FXCollections.observableArrayList(militaryLicenseList);
+    private void refreshTable(List<MilitaryLicense> militaryLicenseList) {
+        ObservableList<MilitaryLicense> militaryLicenseObservableList = FXCollections.observableArrayList(militaryLicenseList);
 //        militaryLicenseTable.getItems().clear();
 
         idCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));

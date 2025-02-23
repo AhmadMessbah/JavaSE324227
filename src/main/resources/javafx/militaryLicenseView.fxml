@@ -39,13 +39,13 @@
                 <Label layoutX="10.0" layoutY="30.0" text="End Date" GridPane.rowIndex="5" />
                 <Label layoutX="10.0" layoutY="30.0" text="Province" GridPane.rowIndex="6" />
                 <Label layoutX="10.0" layoutY="30.0" text="Military Type" GridPane.rowIndex="7" />
+                <TextField fx:id="militaryId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="firstName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="lastName" layoutX="172.0" layoutY="91.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <DatePicker fx:id="startDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <DatePicker fx:id="endDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <ComboBox fx:id="provinceComboBox" prefHeight="31.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 <ComboBox fx:id="militaryTypeComboBox" prefHeight="28.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <DatePicker fx:id="endDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <DatePicker fx:id="startDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="firstName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="militaryId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="lastName" layoutX="172.0" layoutY="91.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <TextField fx:id="id" disable="true" layoutX="166.0" layoutY="79.0" GridPane.columnIndex="1" />
             </children>
         </GridPane>
@@ -57,11 +57,6 @@
                 <TableColumn fx:id="lastNameCol" prefWidth="180.0" text="Last Name" />
             </columns>
         </TableView>
-        <Button fx:id="deleteBtn" layoutX="244.0" layoutY="463.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #dd0000;" styleClass="deleteBtn" text="Delete" textFill="#f7f7f7">
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-        </Button>
         <Button fx:id="saveBtn" layoutX="42.0" layoutY="463.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #00aa00;" text="Save" textFill="#f7f7f7">
             <cursor>
                 <Cursor fx:constant="HAND" />
@@ -72,7 +67,12 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button fx:id="refreshBtn" layoutX="804.0" layoutY="463.0" mnemonicParsing="false" text="🔄" >
+        <Button fx:id="deleteBtn" layoutX="244.0" layoutY="463.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #dd0000;" styleClass="deleteBtn" text="Delete" textFill="#f7f7f7">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+        <Button fx:id="refreshBtn" layoutX="804.0" layoutY="463.0" mnemonicParsing="false" text="🔄">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>

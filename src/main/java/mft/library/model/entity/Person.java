@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @SuperBuilder
 @ToString
 
-public class Member {
+public class Person {
     private int id;
     private String name;
     private String family;
