@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j;
 import mft.library.MilitaryLicenseApp;
 import mft.library.model.entity.MilitaryLicense;
 import mft.library.model.entity.Person;
+import mft.library.model.entity.enums.FormState;
 import mft.library.model.entity.enums.MilitaryType;
 import mft.library.model.entity.enums.Province;
 import mft.library.model.service.MilitaryLicenseService;
@@ -49,6 +50,25 @@ public class MilitaryLicenseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (FormViewer.militaryFormState.equals(FormState.New)) {
+            updateBtn.setDisable(true);
+            deleteBtn.setDisable(true);
+        } else if (FormViewer.militaryFormState.equals(FormState.Edit)) {
+            saveBtn.setDisable(true);
+            deleteBtn.setDisable(true);
+        } else if (FormViewer.militaryFormState.equals(FormState.Remove)) {
+            saveBtn.setDisable(true);
+            updateBtn.setDisable(true);
+        } else if (FormViewer.militaryFormState.equals(FormState.Find)) {
+            saveBtn.setDisable(true);
+            updateBtn.setDisable(true);
+            deleteBtn.setDisable(true);
+            militaryLicenseTable.setLayoutX(14);
+            militaryLicenseTable.setLayoutY(14);
+            militaryLicenseTable.setPrefWidth(733);
+            militaryLicenseTable.setPrefHeight(314);
+        }
+
         log.info("View initialized");
 
         provinceComboBox.setItems(FXCollections.observableArrayList(Province.values()));
@@ -165,6 +185,7 @@ public class MilitaryLicenseController implements Initializable {
                 person.setText((String.valueOf(militaryLicense.getPerson().getName()))
                         .concat(String.valueOf(militaryLicense.getPerson().getFamily())));
             }
+            FormViewer.selectedMilitaryLicense = militaryLicense;
         });
 
         refreshBtn.setOnAction(event -> {
@@ -177,7 +198,7 @@ public class MilitaryLicenseController implements Initializable {
                 PersonModalController personModalController = new PersonModalController();
                 personModalController.loadPersonData();
             } catch (Exception e) {
-                throw new RuntimeException(e);
+               log.error(e);
             }
         });
     }
@@ -193,8 +214,6 @@ public class MilitaryLicenseController implements Initializable {
         try {
             refreshTable(MilitaryLicenseService.findAll());
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
-            alert.show();
             log.error(e);
         }
     }
@@ -207,5 +226,10 @@ public class MilitaryLicenseController implements Initializable {
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
         militaryLicenseTable.setItems(militaryLicenseObservableList);
+    }
+
+    public void fillPersonField(Person selectedPerson) {
+        person.setText((String.valueOf(selectedPerson.getName()))
+                .concat(String.valueOf(selectedPerson.getFamily())));
     }
 }
