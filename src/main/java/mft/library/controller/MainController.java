@@ -24,7 +24,7 @@ public class MainController implements Initializable {
             showPersonForm();
         });
         newDriverLicenseMnu.setOnAction(e -> {
-            FormViewer.DriverLicenseFormState = FormState.New;
+            FormViewer.driverLicenseFormState = FormState.New;
             showDriverLicenseForm();
         });
 
@@ -33,7 +33,7 @@ public class MainController implements Initializable {
             showPersonForm();
         });
         editDriverLicenseMnu.setOnAction(e -> {
-            FormViewer.DriverLicenseFormState = FormState.Edit;
+            FormViewer.driverLicenseFormState = FormState.Edit;
             showDriverLicenseForm();
         });
 
@@ -42,7 +42,7 @@ public class MainController implements Initializable {
             showPersonForm();
         });
         removeDriverLicenseMnu.setOnAction(e -> {
-            FormViewer.DriverLicenseFormState = FormState.Remove;
+            FormViewer.driverLicenseFormState = FormState.Remove;
             showDriverLicenseForm();
         });
 
@@ -52,7 +52,7 @@ public class MainController implements Initializable {
             showPersonForm();
         });
         findDriverLicenseMnu.setOnAction(e -> {
-            FormViewer.DriverLicenseFormState = FormState.Find;
+            FormViewer.driverLicenseFormState = FormState.Find;
             showDriverLicenseForm();
         });
 
