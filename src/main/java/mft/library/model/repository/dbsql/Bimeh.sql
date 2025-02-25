@@ -12,3 +12,5 @@ create table bimeh
     person_id        number not null references persons(p_id)
 );
 create sequence bimeh_seq start with 1 increment by 1;
+
+select * from persons right join bimeh on bimeh.person_id = persons.p_id;
