@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import lombok.extern.log4j.Log4j;
 import mft.library.model.entity.DriverLicense;
 import mft.library.model.entity.enums.FormState;
@@ -38,20 +37,22 @@ public class DriverLicenseController implements Initializable {
     @FXML
     private TableColumn<DriverLicense, String> nameCol,licenseIdCol,dateTimeCol,expireCol;
 
-    @FXML
-    private Pane pane;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        pane.setPrefWidth(268);
+
         if (FormViewer.DriverLicenseFormState.equals(FormState.New)) {
-            saveBtn.setVisible(true);
+            editBtn.setDisable(true);
+            removeBtn.setDisable(true);
         } else if (FormViewer.DriverLicenseFormState.equals(FormState.Edit)) {
-            editBtn.setVisible(true);
+            saveBtn.setDisable(true);
+            removeBtn.setDisable(true);
         } else if (FormViewer.DriverLicenseFormState.equals(FormState.Remove)) {
-            removeBtn.setVisible(true);
+            saveBtn.setDisable(true);
+            editBtn.setDisable(true);
         } else if (FormViewer.DriverLicenseFormState.equals(FormState.Find)) {
-            pane.setPrefWidth(803);
+            saveBtn.setDisable(true);
+            editBtn.setDisable(true);
+            removeBtn.setDisable(true);
             driverLicenseTable.setLayoutX(14);
             driverLicenseTable.setLayoutY(14);
             driverLicenseTable.setPrefWidth(758);

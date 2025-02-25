@@ -12,6 +12,8 @@ public class MainController implements Initializable {
     @FXML
     private MenuItem newPersonMnu, editPersonMnu, removePersonMnu, findPersonMnu,
             newDriverLicenseMnu, editDriverLicenseMnu, removeDriverLicenseMnu, findDriverLicenseMnu;
+    @FXML
+    private MenuItem newMilitaryMnu, editMilitaryMnu, removeMilitaryMnu, findMilitaryMnu;
 
 
 
@@ -22,7 +24,7 @@ public class MainController implements Initializable {
             showPersonForm();
         });
         newDriverLicenseMnu.setOnAction(e -> {
-            FormViewer.DriverLicenseFormState = FormState.New;
+            FormViewer.driverLicenseFormState = FormState.New;
             showDriverLicenseForm();
         });
 
@@ -31,7 +33,7 @@ public class MainController implements Initializable {
             showPersonForm();
         });
         editDriverLicenseMnu.setOnAction(e -> {
-            FormViewer.DriverLicenseFormState = FormState.Edit;
+            FormViewer.driverLicenseFormState = FormState.Edit;
             showDriverLicenseForm();
         });
 
@@ -40,7 +42,7 @@ public class MainController implements Initializable {
             showPersonForm();
         });
         removeDriverLicenseMnu.setOnAction(e -> {
-            FormViewer.DriverLicenseFormState = FormState.Remove;
+            FormViewer.driverLicenseFormState = FormState.Remove;
             showDriverLicenseForm();
         });
 
@@ -50,10 +52,26 @@ public class MainController implements Initializable {
             showPersonForm();
         });
         findDriverLicenseMnu.setOnAction(e -> {
-            FormViewer.DriverLicenseFormState = FormState.Find;
+            FormViewer.driverLicenseFormState = FormState.Find;
             showDriverLicenseForm();
         });
 
+        newMilitaryMnu.setOnAction(e -> {
+            FormViewer.militaryFormState = FormState.New;
+            showMilitaryLicenseForm();
+        });
+        editMilitaryMnu.setOnAction(e -> {
+            FormViewer.militaryFormState = FormState.Edit;
+            showMilitaryLicenseForm();
+        });
+        removeMilitaryMnu.setOnAction(e -> {
+            FormViewer.militaryFormState = FormState.Remove;
+            showMilitaryLicenseForm();
+        });
+        findMilitaryMnu.setOnAction(e -> {
+            FormViewer.militaryFormState = FormState.Find;
+            showMilitaryLicenseForm();
+        });
     }
 
     public void showPersonForm() {
@@ -68,6 +86,15 @@ public class MainController implements Initializable {
         try {
             FormViewer formViewer = new FormViewer();
             formViewer.showDriverLicenseForm();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void showMilitaryLicenseForm() {
+        try {
+            FormViewer formViewer = new FormViewer();
+            formViewer.showMilitaryLicenseForm();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

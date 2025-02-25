@@ -6,7 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import mft.library.model.entity.JobHistory;
+import mft.library.model.entity.enums.FormState;
 import mft.library.model.service.JobService;
 import mft.library.model.service.PersonService;
 
@@ -34,8 +36,29 @@ public class JobController implements Initializable {
     @FXML
     private TableColumn<JobHistory, String> personCol,jobCol,companyCol;
 
+    @FXML
+    private Pane pane;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        pane.setPrefWidth(268);
+        if (FormViewer.jobHistoryFormState.equals(FormState.New)) {
+            saveBtn.setVisible(true);
+        } else if (FormViewer.jobHistoryFormState.equals(FormState.Edit)) {
+            editBtn.setVisible(true);
+        } else if (FormViewer.jobHistoryFormState.equals(FormState.Remove)) {
+            removeBtn.setVisible(true);
+        } else if (FormViewer.jobHistoryFormState.equals(FormState.Find)) {
+//            saveBtn.setDisable(true);
+//            editBtn.setDisable(true);
+//            removeBtn.setDisable(true);
+            pane.setPrefWidth(802);
+            jobTable.setLayoutX(14);
+            jobTable.setLayoutY(14);
+            jobTable.setPrefWidth(733);
+            jobTable.setPrefHeight(314);
+        }
+
         resetForm();
 
         saveBtn.setOnAction(event -> {
@@ -152,4 +175,6 @@ private void resetForm() {
 
         jobTable.setItems(jobObservableList);
     }
+
+
 }
