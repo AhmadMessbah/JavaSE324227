@@ -16,11 +16,9 @@ public class BimehService {
 
         validateStartAndEndDate(bimeh);
 
-        // اعتبارسنجی: شماره بیمه نباید خالی باشد
         if (bimeh.getPolicyNumber() == null || bimeh.getPolicyNumber().isEmpty()) {
             throw new Exception("شماره بیمه نمی‌تواند خالی باشد");
         }
-
 
         try (BimehRepository bimehRepository = new BimehRepository()) {
             bimehRepository.save(bimeh);
@@ -63,7 +61,6 @@ public class BimehService {
     public static List<Bimeh> findAll() throws Exception {
         try (BimehRepository bimehRepository = new BimehRepository()) {
             List<Bimeh> bimehList = bimehRepository.findAll();
-            System.out.println("Retrieved Bimeh List: " + bimehList);  // چاپ داده‌ها برای بررسی
             if (bimehList.isEmpty()) {
                 throw new Exception("بیمه‌ای یافت نشد");
             }

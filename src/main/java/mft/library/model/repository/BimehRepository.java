@@ -2,8 +2,6 @@ package mft.library.model.repository;
 
 import mft.library.model.entity.Bimeh;
 import mft.library.model.entity.Person;
-
-import java.util.Collections;
 import java.util.List;
 
 
@@ -14,7 +12,7 @@ import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class BimehRepository implements Repository <Bimeh,Integer> {
 
