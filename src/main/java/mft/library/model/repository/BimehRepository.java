@@ -36,7 +36,7 @@ public class BimehRepository implements Repository <Bimeh,Integer> {
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, bimeh.getId());
         preparedStatement.setString(2, bimeh.getPolicyNumber());
         preparedStatement.setString(3, String.valueOf(bimeh.getInsuranceType()));
@@ -52,7 +52,7 @@ public class BimehRepository implements Repository <Bimeh,Integer> {
     public void edit(Bimeh bimeh) throws Exception {
         String sql = "UPDATE BIMEH SET  insuranceType = ?, startDate = ?, endDate = ?, status = ?" +
                 "WHERE b_id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, String.valueOf(bimeh.getInsuranceType()));
         preparedStatement.setDate(2, Date.valueOf(bimeh.getStartDate()));
         preparedStatement.setDate(3, Date.valueOf(bimeh.getEndDate()));
@@ -65,15 +65,15 @@ public class BimehRepository implements Repository <Bimeh,Integer> {
     @Override
     public void remove(Integer id) throws Exception {
         String sql = "DELETE FROM BIMEH WHERE b_id = ?";
-        PreparedStatement prepareStatement = connection.prepareStatement(sql);
-        prepareStatement.setInt(1,id);
-        prepareStatement.executeUpdate();
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        preparedStatement.executeUpdate();
     }
 
     @Override
     public List<Bimeh> findAll() throws Exception {
         String sql ="select * from persons right join bimeh on bimeh.person_id = persons.p_id";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         List<Bimeh> bimehList = new ArrayList<>();
@@ -107,9 +107,9 @@ public class BimehRepository implements Repository <Bimeh,Integer> {
     @Override
     public Bimeh findById(Integer id) throws Exception {
         String sql = "select * from persons right join bimeh on bimeh.person_id = persons.p_id where bimeh.b_id = ?";
-        PreparedStatement prepareStatement = connection.prepareStatement(sql);
-        prepareStatement.setInt(1, id);
-        ResultSet resultSet = prepareStatement.executeQuery();
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
             Person person = Person

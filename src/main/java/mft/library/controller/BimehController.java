@@ -1,5 +1,6 @@
 package mft.library.controller;
 
+import mft.library.model.entity.enums.FormState;
 import mft.library.model.entity.enums.InsuranceStatus;
 import mft.library.model.entity.enums.InsuranceType;
 import javafx.collections.FXCollections;
@@ -19,6 +20,26 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class BimehController implements Initializable {
+
+//      if (BimehViewer.bimehFormState.equals(FormState.New)) {
+//        editBtn.setDisable(true);
+//        removeBtn.setDisable(true);
+//    } else if (BimehViewer.bimehFormState.equals(FormState.Edit)) {
+//        saveBtn.setDisable(true);
+//        removeBtn.setDisable(true);
+//    } else if (BimehViewer.bimehFormState.equals(FormState.Remove)) {
+//        saveBtn.setDisable(true);
+//        editBtn.setDisable(true);
+//    } else if (BimehViewer.bimehFormState.equals(FormState.Find)) {
+//        saveBtn.setDisable(true);
+//        editBtn.setDisable(true);
+//        removeBtn.setDisable(true);
+//        personTable.setLayoutX(14);
+//        personTable.setLayoutY(14);
+//        personTable.setPrefWidth(733);
+//        personTable.setPrefHeight(314);
+//    }
+
 
     @FXML
     private TextField policyNumberTxt;
@@ -163,6 +184,7 @@ public class BimehController implements Initializable {
             System.out.println(BimehService.findAll());
             refreshTable(BimehService.findAll());
         } catch (Exception e) {
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
             alert.show();
         }
@@ -173,10 +195,10 @@ public class BimehController implements Initializable {
         bimehTable.getItems().clear();
 
         policyNumberCol.setCellValueFactory(new PropertyValueFactory<>("policyNumber"));
-        personCol.setCellValueFactory(cellData -> {
-            Person person = cellData.getValue().getPerson();
-            return person != null ? new SimpleStringProperty(person.getName()) : new SimpleStringProperty("No person");
-        });
+//        personCol.setCellValueFactory(cellData -> {
+//            Person person = cellData.getValue().getPerson();
+//            return person != null ? new SimpleStringProperty(person.getName()) : new SimpleStringProperty("No person");
+//        });
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         bimehTable.setItems(bimehObservableList);
