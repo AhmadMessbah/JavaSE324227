@@ -7,19 +7,7 @@ import java.util.List;
 
 public class MilitaryLicenseService {
     public static void save(MilitaryLicense militaryLicense) throws Exception {
-        if (militaryLicense.getFirstName().isEmpty()){
-            throw new Exception("First name is empty");
-        }
-
-        if (!(militaryLicense.getStartMilitaryDate().getYear() >= 1980 && militaryLicense.getStartMilitaryDate().getYear() <= 2024)) {
-            throw new Exception("Invalid start date");
-        }
-        if (!(militaryLicense.getEndMilitaryDate().getYear() >= 1980 && militaryLicense.getEndMilitaryDate().getYear() <= 2024)) {
-            throw new Exception("Invalid end date");
-        }
-        if (militaryLicense.getStartMilitaryDate().getYear() > militaryLicense.getEndMilitaryDate().getYear()) {
-            throw new Exception("Start date cannot be greater than end date ");
-        }
+        dateValidation(militaryLicense);
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
             militaryLicenseRepository.save(militaryLicense);
         }
@@ -27,15 +15,7 @@ public class MilitaryLicenseService {
 
     public static void edit(MilitaryLicense militaryLicense) throws Exception {
         findById(militaryLicense.getId());
-        if (!(militaryLicense.getStartMilitaryDate().getYear() >= 1980 && militaryLicense.getStartMilitaryDate().getYear() <= 2024)) {
-            throw new Exception("Invalid start date");
-        }
-        if (!(militaryLicense.getEndMilitaryDate().getYear() >= 1980 && militaryLicense.getEndMilitaryDate().getYear() <= 2024)) {
-            throw new Exception("Invalid end date");
-        }
-        if (militaryLicense.getStartMilitaryDate().getYear() > militaryLicense.getEndMilitaryDate().getYear()) {
-            throw new Exception("Start date cannot be greater than end date ");
-        }
+        dateValidation(militaryLicense);
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
             militaryLicenseRepository.edit(militaryLicense);
         }
@@ -65,6 +45,18 @@ public class MilitaryLicenseService {
                 throw new Exception("No license found");
             }
             return militaryLicense;
+        }
+    }
+
+    private static void dateValidation(MilitaryLicense militaryLicense) throws Exception {
+        if (!(militaryLicense.getStartMilitaryDate().getYear() >= 1980 && militaryLicense.getStartMilitaryDate().getYear() <= 2024)) {
+            throw new Exception("Invalid start date");
+        }
+        if (!(militaryLicense.getEndMilitaryDate().getYear() >= 1980 && militaryLicense.getEndMilitaryDate().getYear() <= 2024)) {
+            throw new Exception("Invalid end date");
+        }
+        if (militaryLicense.getStartMilitaryDate().getYear() > militaryLicense.getEndMilitaryDate().getYear()) {
+            throw new Exception("Start date cannot be greater than end date ");
         }
     }
 }
