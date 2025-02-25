@@ -5,18 +5,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
+import mft.library.MilitaryLicenseApp;
 import mft.library.model.entity.MilitaryLicense;
 import mft.library.model.entity.Person;
 import mft.library.model.entity.enums.MilitaryType;
 import mft.library.model.entity.enums.Province;
 import mft.library.model.service.MilitaryLicenseService;
+import mft.library.model.service.PersonService;
 
 import java.net.URL;
 import java.util.List;
@@ -171,6 +169,16 @@ public class MilitaryLicenseController implements Initializable {
 
         refreshBtn.setOnAction(event -> {
             resetForm();
+        });
+
+        addPersonBtn.setOnAction(event -> {
+            try {
+                MilitaryLicenseApp.showPersonModal();
+                PersonModalController personModalController = new PersonModalController();
+                personModalController.loadPersonData();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 

@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import mft.library.model.entity.enums.DriverLicenseType;
+
 
 import java.time.LocalDate;
 
@@ -17,18 +19,10 @@ import java.time.LocalDate;
 public class DriverLicense {
     private int id;
     private int licenseId;
-    private String person;
     private LocalDate dateTime;
     private LocalDate expire;
+    private DriverLicenseType driverLicenseType;
     private String city;
+    private Person person;
 
-    public enum type {
-        CAR,
-        MOTORCYCLE,
-        TRUCK,
-        BUS,
-        TRACTOR,
-        BOAT,
-        AIRCRAFT
-    }
 }
