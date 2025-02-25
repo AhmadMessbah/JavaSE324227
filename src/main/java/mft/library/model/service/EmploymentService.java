@@ -37,7 +37,7 @@ public class EmploymentService {
     }
 
     public static List<Employment> findAll() throws Exception {
-        try (EmploymentRepository employmentRepository = new employmentRepository()) {
+        try (EmploymentRepository employmentRepository = new EmploymentRepository()) {
             List<Employment> employments = employmentRepository.findAll();
             if (employments.isEmpty()) {
                 throw new Exception("No employment found");
@@ -48,7 +48,7 @@ public class EmploymentService {
 
 
     public static Employment findById(int id) throws Exception {
-        try (Employment employment = new EmploymentRepository()) {
+        try (EmploymentRepository employmentRepository = new EmploymentRepository()) {
             Employment employment = employmentRepository.findById(id);
             if (employment == null) {
                 throw new Exception("Employment not found");
@@ -57,13 +57,4 @@ public class EmploymentService {
         }
     }
 
-    public static List<Employment> findByPersonAndDepartment(String person, String department) throws Exception {
-        try (EmploymentRepository employmentRepository = new EmploymentRepository()) {
-            List<Employment> employmentList = employmentRepository.findByPersonAndDepartment(person, department);
-            if (employmentList.isEmpty()) {
-                throw new Exception("No employment found");
-            }
-            return employmentList;
-        }
-    }
 }

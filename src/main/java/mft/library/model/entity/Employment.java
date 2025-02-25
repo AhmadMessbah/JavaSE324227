@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-
+import mft.library.model.entity.Person;
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 public class Employment {
     private int id;
-    private String person;
+    private Person person;
     private String department;
     private String job;
     private Long salary;

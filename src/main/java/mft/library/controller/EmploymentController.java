@@ -14,12 +14,14 @@ import mft.library.model.service.JobService;
 import mft.library.model.service.PersonService;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class EmploymentController implements Initializable{
     @FXML
-    private TextField idTxt,personTxt,departmentTxt,jobTxt,salaryTxt,personSearchTxt,jobSearchTxt ;
+    private TextField idTxt,personTxt,departmentTxt,jobTxt,salaryTxt ;
 
     @FXML
     private Button saveBtn, editBtn, removeBtn;
@@ -28,13 +30,10 @@ public class EmploymentController implements Initializable{
     private DatePicker startDate,endDate;
 
     @FXML
-    private TableView<JobHistory> employmentTable;
+    private TableView<Employment> employmentTable;
 
     @FXML
-    private TableColumn<Employment, Integer> idCol;
-
-    @FXML
-    private TableColumn<Employment, String> personCol,jobCol,companyCol;
+    private TableColumn<Employment, String> idCol,personCol,jobCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,11 +41,21 @@ public class EmploymentController implements Initializable{
 
         saveBtn.setOnAction(event -> {
             try {
+
+                Person person = Person
+                        .builder()
+                        .id(1)
+                        .name("behnaz")
+                        .family("mohammadii")
+                        .birthDate(LocalDate.now())
+                        .username("b-m")
+                        .password("b123m")
+                        .active(true)
+                        .build();
                 Employment employment =
                         Employment
                                 .builder()
-//                        .person(personTxt.getText())
-                                .person(personTxt.getText())
+                                .person(person)
                                 .startDate(startDate.getValue())
                                 .endDate(endDate.getValue())
                                 .department(departmentTxt.getText())
@@ -65,12 +74,21 @@ public class EmploymentController implements Initializable{
 
         editBtn.setOnAction(event -> {
             try {
+                Person person = Person
+                        .builder()
+                        .id(1)
+                        .name("behnaz")
+                        .family("mohammadii")
+                        .birthDate(LocalDate.now())
+                        .username("b-m")
+                        .password("b123m")
+                        .active(true)
+                        .build();
                 Employment employment =
                         Employment
                                 .builder()
                                 .id(Integer.parseInt(idTxt.getText()))
-//                        .person(personTxt.getText())
-                                .person(personTxt.getText())
+                                .person(person)
                                 .startDate(startDate.getValue())
                                 .endDate(endDate.getValue())
                                 .department(departmentTxt.getText())
@@ -99,21 +117,6 @@ public class EmploymentController implements Initializable{
             }
         });
 
-        personSearchTxt.setOnKeyReleased(event -> {
-            try{
-//                refreshTable(EmploymentService.findByPersonAndDepartment(personSearchTxt.getText() , departmentSearchTxt.getText()));
-            }catch (Exception e){
-
-            }
-        });
-
-        personSearchTxt.setOnKeyReleased(event -> {
-            try{
-//                refreshTable(EmploymentService.findByPersonAndDepartment(personSearchTxt.getText() , departmentSearchTxt.getText()));
-            }catch (Exception e){
-
-            }
-        });
 
         employmentTable.setOnMouseReleased(event -> {
             Employment employment = employmentTable.getSelectionModel().getSelectedItem();
@@ -135,25 +138,21 @@ public class EmploymentController implements Initializable{
         endDate.setValue(null);
         jobTxt.clear();
         salaryTxt.clear();
-        personSearchTxt.clear();
         departmentTxt.clear();
         try {
-            refreshTable(Employment.findAll());
+            refreshTable(EmploymentService.findAll());
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
             alert.show();
         }
     }
 
-    private void refreshTable(List<Employment> jobList) {
+    private void refreshTable(List<Employment> employmentList) {
         ObservableList<Employment> employmentObservableList = FXCollections.observableArrayList(employmentList);
         employmentTable.getItems().clear();
-
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         personCol.setCellValueFactory(new PropertyValueFactory<>("person"));
         jobCol.setCellValueFactory(new PropertyValueFactory<>("job"));
-        departmentCol.setCellValueFactory(new PropertyValueFactory<>("department"));
-
         employmentTable.setItems(employmentObservableList);
     }
 }
