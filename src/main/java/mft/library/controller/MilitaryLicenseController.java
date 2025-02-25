@@ -185,6 +185,7 @@ public class MilitaryLicenseController implements Initializable {
                 person.setText((String.valueOf(militaryLicense.getPerson().getName()))
                         .concat(String.valueOf(militaryLicense.getPerson().getFamily())));
             }
+            FormViewer.selectedMilitaryLicense = militaryLicense;
         });
 
         refreshBtn.setOnAction(event -> {

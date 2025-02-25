@@ -11,7 +11,7 @@ import mft.library.model.entity.enums.FormState;
 
 @Log4j
 public class FormViewer {
-    public static FormState personFormState, militaryFormState, DriverLicenseFormState;
+    public static FormState personFormState, militaryFormState, driverLicenseFormState;
     public static Person selectedPerson;
     public static DriverLicense selectedDriverLicense;
     public static MilitaryLicense selectedMilitaryLicense;
