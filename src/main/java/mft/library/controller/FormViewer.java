@@ -12,12 +12,23 @@ public class FormViewer {
     public static FormState personFormState;
     public static Person selectedPerson;
 
+    public static Person selectedJobHistory;
+    public static FormState jobHistoryFormState;
+
     public void showPersonForm() throws Exception {
         log.info("Starting Application");
         Stage stage = new Stage();
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/javafx/personView.fxml")));
         stage.setScene(scene);
         stage.setTitle("Member Info");
+        stage.show();
+    }
+    public void showJobHistoryForm() throws Exception {
+        log.info("Starting Application");
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/javafx/jobHistoryView.fxml")));
+        stage.setScene(scene);
+        stage.setTitle("Job History");
         stage.show();
     }
 }
