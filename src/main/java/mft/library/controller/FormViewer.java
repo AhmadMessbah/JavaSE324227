@@ -12,8 +12,9 @@ public class FormViewer {
     public static FormState personFormState;
     public static Person selectedPerson;
 
-    public static Person selectedJobHistory;
+
     public static FormState jobHistoryFormState;
+    public static Person selectedJobHistory;
 
     public void showPersonForm() throws Exception {
         log.info("Starting Application");
