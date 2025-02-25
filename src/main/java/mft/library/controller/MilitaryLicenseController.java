@@ -15,7 +15,6 @@ import mft.library.model.entity.enums.FormState;
 import mft.library.model.entity.enums.MilitaryType;
 import mft.library.model.entity.enums.Province;
 import mft.library.model.service.MilitaryLicenseService;
-import mft.library.model.service.PersonService;
 
 import java.net.URL;
 import java.util.List;
@@ -60,13 +59,14 @@ public class MilitaryLicenseController implements Initializable {
             saveBtn.setDisable(true);
             updateBtn.setDisable(true);
         } else if (FormViewer.militaryFormState.equals(FormState.Find)) {
-            saveBtn.setDisable(true);
-            updateBtn.setDisable(true);
-            deleteBtn.setDisable(true);
-            militaryLicenseTable.setLayoutX(14);
-            militaryLicenseTable.setLayoutY(14);
-            militaryLicenseTable.setPrefWidth(733);
-            militaryLicenseTable.setPrefHeight(314);
+            saveBtn.setVisible(false);
+            updateBtn.setVisible(false);
+            deleteBtn.setVisible(false);
+            refreshBtn.setVisible(false);
+            militaryLicenseTable.setLayoutX(13);
+            militaryLicenseTable.setLayoutY(23);
+            militaryLicenseTable.setPrefWidth(860);
+            militaryLicenseTable.setPrefHeight(515);
         }
 
         log.info("View initialized");
