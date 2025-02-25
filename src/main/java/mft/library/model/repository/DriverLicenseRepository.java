@@ -31,6 +31,7 @@ public class DriverLicenseRepository implements Repository <DriverLicense, Integ
         preparedStatement.setDate(3, Date.valueOf(driverLicense.getDateTime()));
         preparedStatement.setDate(4, Date.valueOf(driverLicense.getExpire()));
         preparedStatement.execute();
+        log.info("DriverLicenserepository save executed");
 
 
     }
@@ -45,6 +46,8 @@ public class DriverLicenseRepository implements Repository <DriverLicense, Integ
         preparedStatement.setDate(2, Date.valueOf(driverLicense.getDateTime()));
         preparedStatement.setDate(3, Date.valueOf(driverLicense.getExpire()));
         preparedStatement.execute();
+        log.info("DriverLicenserepository edit executed");
+
     }
 
     @Override
@@ -54,6 +57,8 @@ public class DriverLicenseRepository implements Repository <DriverLicense, Integ
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
+        log.info("DriverLicenserepository remove executed");
+
     }
 
     @Override
@@ -87,6 +92,7 @@ public class DriverLicenseRepository implements Repository <DriverLicense, Integ
             driverLicensesList.add(driverLicense);
         }
         return driverLicensesList;
+
     }
 
     @Override

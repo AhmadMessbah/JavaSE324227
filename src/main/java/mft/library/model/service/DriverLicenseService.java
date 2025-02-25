@@ -19,7 +19,7 @@ public class DriverLicenseService {
     
     public static DriverLicense edit(DriverLicense driverLicense) throws Exception {
         findById(driverLicense.getId());
-        if (!(driverLicense.getDateTime().getYear() >= 1980 && driverLicense.getExpire().getYear() <= 2020)) {
+        if (!(driverLicense.getDateTime().getYear() >= 2015 && driverLicense.getExpire().getYear() <= 2025)) {
             throw new Exception("Invalid date");
         }
         try (DriverLicenseRepository driverLicenseRepository = new DriverLicenseRepository()) {
