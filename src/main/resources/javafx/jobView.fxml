@@ -44,6 +44,11 @@
                 <DatePicker fx:id="startDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <DatePicker fx:id="endDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <TextField fx:id="descriptionTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button fx:id="selectBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="32.0" text="✓" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="112.0" />
+               </GridPane.margin>
+            </Button>
             </children>
         </GridPane>
         <HBox layoutX="273.0" layoutY="25.0" prefHeight="32.0" prefWidth="505.0">
