@@ -30,6 +30,14 @@
                   <MenuItem fx:id="findDriverLicenseMnu" mnemonicParsing="false" text="Find" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="MilitaryLicense">
+               <items>
+                  <MenuItem fx:id="newMilitaryMnu" mnemonicParsing="false" text="New" />
+                  <MenuItem fx:id="editMilitaryMnu" mnemonicParsing="false" text="Edit" />
+                  <MenuItem fx:id="removeMilitaryMnu" mnemonicParsing="false" text="Remove" />
+                  <MenuItem fx:id="findMilitaryMnu" mnemonicParsing="false" text="Find" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
