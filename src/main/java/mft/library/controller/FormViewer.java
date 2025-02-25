@@ -30,5 +30,6 @@ public class FormViewer {
         stage.setScene(scene);
         stage.setTitle("showDriverLicenseForm");
         stage.show();
+        stage.setResizable(false);
     }
 }
