@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="871.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mft.library.controller.MilitaryLicenseController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="885.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mft.library.controller.MilitaryLicenseController">
     <children>
         <GridPane layoutX="13.0" layoutY="8.0" prefHeight="444.0" prefWidth="311.0">
             <columnConstraints>
@@ -28,25 +28,27 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label layoutX="10.0" layoutY="84.0" text="ID" />
                 <Label text="Military ID" GridPane.rowIndex="1" />
-                <Label text="First Name" GridPane.rowIndex="2" />
-                <Label text="Last Name" GridPane.rowIndex="3" />
-                <Label layoutX="10.0" layoutY="150.0" text="Start Date" GridPane.rowIndex="4" />
-                <Label layoutX="10.0" layoutY="30.0" text="End Date" GridPane.rowIndex="5" />
-                <Label layoutX="10.0" layoutY="30.0" text="Province" GridPane.rowIndex="6" />
-                <Label layoutX="10.0" layoutY="30.0" text="Military Type" GridPane.rowIndex="7" />
-                <TextField fx:id="militaryId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="firstName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="lastName" layoutX="172.0" layoutY="91.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <DatePicker fx:id="startDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <DatePicker fx:id="endDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <ComboBox fx:id="provinceComboBox" prefHeight="31.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <ComboBox fx:id="militaryTypeComboBox" prefHeight="28.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <Label text="Person" GridPane.rowIndex="2" />
+                <Label layoutX="10.0" layoutY="150.0" text="Start Date" GridPane.rowIndex="3" />
+                <Label layoutX="10.0" layoutY="30.0" text="End Date" GridPane.rowIndex="4" />
+                <Label layoutX="10.0" layoutY="30.0" text="Province" GridPane.rowIndex="5" />
+                <Label layoutX="10.0" layoutY="30.0" text="Military Type" GridPane.rowIndex="6" />
                 <TextField fx:id="id" disable="true" layoutX="166.0" layoutY="79.0" GridPane.columnIndex="1" />
+                <TextField fx:id="militaryId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="person" disable="true" layoutX="128.0" layoutY="91.0" prefHeight="31.0" prefWidth="176.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="addPersonBtn" mnemonicParsing="false" text="+" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+                <DatePicker fx:id="startDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <DatePicker fx:id="endDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <ComboBox fx:id="provinceComboBox" prefHeight="31.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <ComboBox fx:id="militaryTypeComboBox" prefHeight="28.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             </children>
         </GridPane>
         <TableView fx:id="militaryLicenseTable" layoutX="374.0" layoutY="26.0" prefHeight="414.0" prefWidth="465.0">

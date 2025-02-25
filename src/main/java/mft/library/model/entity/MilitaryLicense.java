@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import mft.library.model.entity.enums.Province;
 import mft.library.model.entity.enums.MilitaryType;
+import mft.library.model.entity.enums.Province;
 
 import java.time.LocalDate;
 
@@ -19,8 +19,7 @@ public class MilitaryLicense {
     //militaryId, person, startMilitaryDate, endMilitaryDate, type, city
     private int id;
     private int militaryId;
-    private String firstName;
-    private String lastName;
+    private Person person;
     private MilitaryType type;
     private Province province;
     private LocalDate startMilitaryDate;

@@ -5,9 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import mft.library.model.entity.enums.DriverLicenseType;
-
-
+import mft.library.model.entity.Person;
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -16,13 +14,12 @@ import java.time.LocalDate;
 @SuperBuilder
 @ToString
 
-public class DriverLicense {
+public class Employment {
     private int id;
-    private int licenseId;
-    private LocalDate dateTime;
-    private LocalDate expire;
-    private DriverLicenseType driverLicenseType;
-    private String city;
     private Person person;
-
+    private String department;
+    private String job;
+    private Long salary;
+    private LocalDate startDate;
+    private LocalDate endDate;
 }

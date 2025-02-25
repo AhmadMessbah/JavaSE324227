@@ -8,10 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
+import mft.library.MilitaryLicenseApp;
 import mft.library.model.entity.MilitaryLicense;
+import mft.library.model.entity.Person;
 import mft.library.model.entity.enums.MilitaryType;
 import mft.library.model.entity.enums.Province;
 import mft.library.model.service.MilitaryLicenseService;
+import mft.library.model.service.PersonService;
 
 import java.net.URL;
 import java.util.List;
@@ -20,10 +23,10 @@ import java.util.ResourceBundle;
 @Log4j
 public class MilitaryLicenseController implements Initializable {
     @FXML
-    private TextField id, militaryId, firstName, lastName;
+    private TextField id, militaryId, person;
 
     @FXML
-    private Button saveBtn, updateBtn, deleteBtn, refreshBtn;
+    private Button saveBtn, updateBtn, deleteBtn, refreshBtn, addPersonBtn;
 
     @FXML
     private DatePicker startDate, endDate;
@@ -56,27 +59,32 @@ public class MilitaryLicenseController implements Initializable {
 
         saveBtn.setOnMouseEntered(event -> saveBtn.setStyle("-fx-background-color: #00ff00;"));
         saveBtn.setOnMouseExited(event -> saveBtn.setStyle("-fx-background-color: #00aa00;"));
-        saveBtn.setOnMousePressed(event -> {saveBtn.setStyle("-fx-background-color: #008800;");});
+        saveBtn.setOnMousePressed(event -> {
+            saveBtn.setStyle("-fx-background-color: #008800;");
+        });
 
         updateBtn.setOnMouseEntered(event -> updateBtn.setStyle("-fx-background-color: #0066ff;"));
         updateBtn.setOnMouseExited(event -> updateBtn.setStyle("-fx-background-color: #0044ff;"));
-        updateBtn.setOnMousePressed(event -> {updateBtn.setStyle("-fx-background-color: #0044aa;");});
+        updateBtn.setOnMousePressed(event -> {
+            updateBtn.setStyle("-fx-background-color: #0044aa;");
+        });
 
         deleteBtn.setOnMouseEntered(event -> deleteBtn.setStyle("-fx-background-color: #ff0000;"));
         deleteBtn.setOnMouseExited(event -> deleteBtn.setStyle("-fx-background-color: #dd0000;"));
-        deleteBtn.setOnMousePressed(event -> {deleteBtn.setStyle("-fx-background-color: #aa0000;");});
+        deleteBtn.setOnMousePressed(event -> {
+            deleteBtn.setStyle("-fx-background-color: #aa0000;");
+        });
 
         saveBtn.setOnAction(event -> {
             try {
                 MilitaryLicense militaryLicense = MilitaryLicense
                         .builder()
                         .militaryId(Integer.parseInt(militaryId.getText()))
-                        .firstName(firstName.getText())
-                        .lastName(lastName.getText())
                         .startMilitaryDate(startDate.getValue())
                         .endMilitaryDate(endDate.getValue())
                         .type(militaryTypeComboBox.getValue())
                         .province(provinceComboBox.getValue())
+                        .person(Person.builder().id(Integer.parseInt(person.getText())).build())
                         .build();
                 MilitaryLicenseService.save(militaryLicense);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "New License Saved ", ButtonType.OK);
@@ -94,12 +102,11 @@ public class MilitaryLicenseController implements Initializable {
                 MilitaryLicense militaryLicense = MilitaryLicense
                         .builder()
                         .id(Integer.parseInt(id.getText()))
-                        .firstName(firstName.getText())
-                        .lastName(lastName.getText())
                         .startMilitaryDate(startDate.getValue())
                         .endMilitaryDate(endDate.getValue())
                         .province(provinceComboBox.getValue())
                         .type(militaryTypeComboBox.getValue())
+                        .person(Person.builder().id(Integer.parseInt(person.getText())).build())
                         .build();
                 MilitaryLicenseService.edit(militaryLicense);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "License Updated", ButtonType.OK);
@@ -151,25 +158,34 @@ public class MilitaryLicenseController implements Initializable {
             if (militaryLicense != null) {
                 id.setText(String.valueOf(militaryLicense.getId()));
                 militaryId.setText(String.valueOf(militaryLicense.getMilitaryId()));
-                firstName.setText(militaryLicense.getFirstName());
-                lastName.setText(militaryLicense.getLastName());
                 startDate.setValue(militaryLicense.getStartMilitaryDate());
                 endDate.setValue(militaryLicense.getEndMilitaryDate());
                 provinceComboBox.getSelectionModel().select(militaryLicense.getProvince());
                 militaryTypeComboBox.getSelectionModel().select(militaryLicense.getType());
+                person.setText((String.valueOf(militaryLicense.getPerson().getName()))
+                        .concat(String.valueOf(militaryLicense.getPerson().getFamily())));
             }
         });
 
         refreshBtn.setOnAction(event -> {
             resetForm();
         });
+
+        addPersonBtn.setOnAction(event -> {
+            try {
+                MilitaryLicenseApp.showPersonModal();
+                PersonModalController personModalController = new PersonModalController();
+                personModalController.loadPersonData();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private void resetForm() {
         id.clear();
         militaryId.clear();
-        firstName.clear();
-        lastName.clear();
+        person.clear();
         startDate.setValue(null);
         endDate.setValue(null);
         provinceComboBox.setValue(null);
@@ -185,8 +201,6 @@ public class MilitaryLicenseController implements Initializable {
 
     private void refreshTable(List<MilitaryLicense> militaryLicenseList) {
         ObservableList<MilitaryLicense> militaryLicenseObservableList = FXCollections.observableArrayList(militaryLicenseList);
-//        militaryLicenseTable.getItems().clear();
-
         idCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
         militaryIdCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getMilitaryId()));
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
