@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
 import mft.library.model.entity.Person;
+import mft.library.model.entity.enums.FormState;
 import mft.library.model.service.PersonService;
 
 import java.net.URL;
@@ -46,6 +47,25 @@ public class PersonController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (FormViewer.personFormState.equals(FormState.New)) {
+            editBtn.setDisable(true);
+            removeBtn.setDisable(true);
+        } else if (FormViewer.personFormState.equals(FormState.Edit)) {
+            saveBtn.setDisable(true);
+            removeBtn.setDisable(true);
+        } else if (FormViewer.personFormState.equals(FormState.Remove)) {
+            saveBtn.setDisable(true);
+            editBtn.setDisable(true);
+        } else if (FormViewer.personFormState.equals(FormState.Find)) {
+            saveBtn.setDisable(true);
+            editBtn.setDisable(true);
+            removeBtn.setDisable(true);
+            personTable.setLayoutX(14);
+            personTable.setLayoutY(14);
+            personTable.setPrefWidth(733);
+            personTable.setPrefHeight(314);
+        }
+
         log.info("MemberView initialized");
         resetForm();
 
@@ -109,16 +129,16 @@ public class PersonController implements Initializable {
         });
 
         nameSearchTxt.setOnKeyReleased(event -> {
-            try{
-                refreshTable(PersonService.findByNameAndFamily(nameSearchTxt.getText() , familySearchTxt.getText()));
-            }catch (Exception e){
+            try {
+                refreshTable(PersonService.findByNameAndFamily(nameSearchTxt.getText(), familySearchTxt.getText()));
+            } catch (Exception e) {
                 log.error(e);
             }
         });
         familySearchTxt.setOnKeyReleased(event -> {
-            try{
-                refreshTable(PersonService.findByNameAndFamily(nameSearchTxt.getText() , familySearchTxt.getText()));
-            }catch (Exception e){
+            try {
+                refreshTable(PersonService.findByNameAndFamily(nameSearchTxt.getText(), familySearchTxt.getText()));
+            } catch (Exception e) {
                 log.error(e);
             }
         });
@@ -138,6 +158,7 @@ public class PersonController implements Initializable {
                 activeRdo.setSelected(false);
                 disableRdo.setSelected(true);
             }
+            FormViewer.selectedPerson = person;
         });
     }
 

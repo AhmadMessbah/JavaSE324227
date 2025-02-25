@@ -2,6 +2,9 @@ package mft.library.model.repository;
 
 import mft.library.model.entity.Bimeh;
 import mft.library.model.entity.Person;
+import mft.library.model.entity.enums.InsuranceStatus;
+import mft.library.model.entity.enums.InsuranceType;
+
 import java.util.List;
 
 

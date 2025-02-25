@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
 import mft.library.model.entity.DriverLicense;
+import mft.library.model.entity.enums.FormState;
 import mft.library.model.service.PersonService;
 import mft.library.model.service.DriverLicenseService;
 import org.apache.log4j.Logger;
@@ -42,6 +43,12 @@ public class DriverLicenseController implements Initializable {
 
         saveBtn.setOnAction(event -> {
             try {
+                FormViewer formViewer = new FormViewer();
+                FormViewer.personFormState = FormState.Find;
+                formViewer.showPersonForm();
+
+                System.out.println(FormViewer.selectedPerson);
+
                 DriverLicense driverLicense =
                         DriverLicense
                         .builder()

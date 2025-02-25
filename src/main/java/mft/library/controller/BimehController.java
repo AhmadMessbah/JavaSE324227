@@ -1,7 +1,7 @@
-package com.bimeh.controller;
+package mft.library.controller;
 
-import com.bimeh.model.entity.InsuranceStatus;
-import com.bimeh.model.entity.InsuranceType;
+import mft.library.model.entity.enums.InsuranceStatus;
+import mft.library.model.entity.enums.InsuranceType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,9 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.beans.property.SimpleStringProperty;
-import com.bimeh.model.entity.Bimeh;
-import com.bimeh.model.entity.Person;
-import com.bimeh.model.service.BimehService;
+import mft.library.model.entity.Bimeh;
+import mft.library.model.entity.Person;
+import mft.library.model.service.BimehService;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -43,8 +43,10 @@ public class BimehController implements Initializable {
 
     @FXML
     private TableColumn<Bimeh, String> policyNumberCol;
+
     @FXML
     private TableColumn<Bimeh, String> personCol;
+
     @FXML
     private TableColumn<Bimeh, String> statusCol;
 
