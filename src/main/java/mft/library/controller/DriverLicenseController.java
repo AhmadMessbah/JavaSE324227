@@ -11,7 +11,6 @@ import mft.library.model.entity.DriverLicense;
 import mft.library.model.entity.enums.FormState;
 import mft.library.model.service.PersonService;
 import mft.library.model.service.DriverLicenseService;
-import org.apache.log4j.Logger;
 
 import java.net.URL;
 import java.util.List;
@@ -40,16 +39,16 @@ public class DriverLicenseController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        if (FormViewer.DriverLicenseFormState.equals(FormState.New)) {
+        if (FormViewer.driverLicenseFormState.equals(FormState.New)) {
             editBtn.setDisable(true);
             removeBtn.setDisable(true);
-        } else if (FormViewer.DriverLicenseFormState.equals(FormState.Edit)) {
+        } else if (FormViewer.driverLicenseFormState.equals(FormState.Edit)) {
             saveBtn.setDisable(true);
             removeBtn.setDisable(true);
-        } else if (FormViewer.DriverLicenseFormState.equals(FormState.Remove)) {
+        } else if (FormViewer.driverLicenseFormState.equals(FormState.Remove)) {
             saveBtn.setDisable(true);
             editBtn.setDisable(true);
-        } else if (FormViewer.DriverLicenseFormState.equals(FormState.Find)) {
+        } else if (FormViewer.driverLicenseFormState.equals(FormState.Find)) {
             saveBtn.setDisable(true);
             editBtn.setDisable(true);
             removeBtn.setDisable(true);
