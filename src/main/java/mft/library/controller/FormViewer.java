@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
+import mft.library.model.entity.JobHistory;
 import mft.library.model.entity.Person;
 import mft.library.model.entity.enums.FormState;
 
@@ -11,6 +12,9 @@ import mft.library.model.entity.enums.FormState;
 public class FormViewer {
     public static FormState personFormState;
     public static Person selectedPerson;
+
+    public static FormState jobHistoryFormState;
+    public static JobHistory selectedJobHistory;
 
     public void showPersonForm() throws Exception {
         log.info("Starting Application");
@@ -20,4 +24,16 @@ public class FormViewer {
         stage.setTitle("Member Info");
         stage.show();
     }
+
+
+    public void showJobHistoryForm() throws Exception{
+        log.info("showJobHistoryForm");
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/javafx/jobView.fxml")));
+        stage.setScene(scene);
+        stage.setTitle("Job History");
+        stage.setResizable(false);
+        stage.show();
+    }
+
 }
