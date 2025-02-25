@@ -16,11 +16,11 @@ public class BimehService {
     // ذخیره بیمه
     public static void save(Bimeh bimeh) throws Exception {
 
-        validateStartAndEndDate(bimeh);
-
-        if (bimeh.getPolicyNumber() == null || bimeh.getPolicyNumber().isEmpty()) {
-            throw new Exception("شماره بیمه نمی‌تواند خالی باشد");
-        }
+//        validateStartAndEndDate(bimeh);
+//
+//        if (bimeh.getPolicyNumber() == null || bimeh.getPolicyNumber().isEmpty()) {
+//            throw new Exception("شماره بیمه نمی‌تواند خالی باشد");
+//        }
 
         try (BimehRepository bimehRepository = new BimehRepository()) {
             bimehRepository.save(bimeh);
