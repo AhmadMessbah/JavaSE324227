@@ -29,7 +29,7 @@
             </rowConstraints>
             <children>
                 <Label text="Id" />
-                <Label text="Name" GridPane.rowIndex="1" />
+                <Label text="Person" GridPane.rowIndex="1" />
                 <Label text="LicenseID" GridPane.rowIndex="2" />
                 <Label text="DateTime" GridPane.rowIndex="3" />
                 <Label text="Expire" GridPane.rowIndex="4" />
