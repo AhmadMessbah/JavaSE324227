@@ -39,15 +39,35 @@ public class DriverLicenseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if (FormViewer.DriverLicenseFormState.equals(FormState.New)) {
+            editBtn.setDisable(true);
+            removeBtn.setDisable(true);
+        } else if (FormViewer.DriverLicenseFormState.equals(FormState.Edit)) {
+            saveBtn.setDisable(true);
+            removeBtn.setDisable(true);
+        } else if (FormViewer.DriverLicenseFormState.equals(FormState.Remove)) {
+            saveBtn.setDisable(true);
+            editBtn.setDisable(true);
+        } else if (FormViewer.DriverLicenseFormState.equals(FormState.Find)) {
+            saveBtn.setDisable(true);
+            editBtn.setDisable(true);
+            removeBtn.setDisable(true);
+            driverLicenseTable.setLayoutX(14);
+            driverLicenseTable.setLayoutY(14);
+            driverLicenseTable.setPrefWidth(758);
+            driverLicenseTable.setPrefHeight(325);
+        }
+
         resetForm();
 
         saveBtn.setOnAction(event -> {
             try {
-                FormViewer formViewer = new FormViewer();
-                FormViewer.personFormState = FormState.Find;
-                formViewer.showPersonForm();
-
-                System.out.println(FormViewer.selectedPerson);
+//                FormViewer formViewer = new FormViewer();
+//                FormViewer.personFormState = FormState.Find;
+//                formViewer.showPersonForm();
+//
+//                System.out.println(FormViewer.selectedPerson);
 
                 DriverLicense driverLicense =
                         DriverLicense
@@ -124,7 +144,10 @@ public class DriverLicenseController implements Initializable {
             licenseidTxt.setText(String.valueOf(driverLicense.getLicenseId()));
             datetime.setValue(driverLicense.getDateTime());
             expire.setValue(driverLicense.getExpire());
+
+            FormViewer.selectedDriverLicense = driverLicense;
         });
+
     }
 
 

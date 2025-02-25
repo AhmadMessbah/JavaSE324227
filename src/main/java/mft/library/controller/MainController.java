@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
-    private MenuItem newPersonMnu, editPersonMnu, removePersonMnu, findPersonMnu;
+    private MenuItem newPersonMnu, editPersonMnu, removePersonMnu, findPersonMnu,
+            newDriverLicenseMnu, editDriverLicenseMnu, removeDriverLicenseMnu, findDriverLicenseMnu;
+
 
 
     @Override
@@ -19,19 +21,37 @@ public class MainController implements Initializable {
             FormViewer.personFormState = FormState.New;
             showPersonForm();
         });
+        newDriverLicenseMnu.setOnAction(e -> {
+            FormViewer.DriverLicenseFormState = FormState.New;
+            showDriverLicenseForm();
+        });
 
         editPersonMnu.setOnAction(e -> {
             FormViewer.personFormState = FormState.Edit;
             showPersonForm();
+        });
+        editDriverLicenseMnu.setOnAction(e -> {
+            FormViewer.DriverLicenseFormState = FormState.Edit;
+            showDriverLicenseForm();
         });
 
         removePersonMnu.setOnAction(e -> {
             FormViewer.personFormState = FormState.Remove;
             showPersonForm();
         });
+        removeDriverLicenseMnu.setOnAction(e -> {
+            FormViewer.DriverLicenseFormState = FormState.Remove;
+            showDriverLicenseForm();
+        });
+
+
         findPersonMnu.setOnAction(e -> {
             FormViewer.personFormState = FormState.Find;
             showPersonForm();
+        });
+        findDriverLicenseMnu.setOnAction(e -> {
+            FormViewer.DriverLicenseFormState = FormState.Find;
+            showDriverLicenseForm();
         });
 
     }
@@ -40,6 +60,14 @@ public class MainController implements Initializable {
         try {
             FormViewer formViewer = new FormViewer();
             formViewer.showPersonForm();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    public void showDriverLicenseForm() {
+        try {
+            FormViewer formViewer = new FormViewer();
+            formViewer.showDriverLicenseForm();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
