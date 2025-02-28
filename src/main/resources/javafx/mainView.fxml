@@ -14,6 +14,14 @@
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Job">
+                <items>
+                    <MenuItem fx:id="newJobServiceMnu" mnemonicParsing="false" text="New" />
+                    <MenuItem fx:id="editJobServiceMnu" mnemonicParsing="false" text="Edit" />
+                    <MenuItem fx:id="removeJobServiceMnu" mnemonicParsing="false" text="Remove" />
+                    <MenuItem fx:id="findJobServiceMnu" mnemonicParsing="false" text="Find" />
+                </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Person">
             <items>
               <MenuItem fx:id="newPersonMnu" mnemonicParsing="false" text="New" />
