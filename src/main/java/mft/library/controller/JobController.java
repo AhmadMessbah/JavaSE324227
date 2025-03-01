@@ -60,7 +60,6 @@ public class JobController implements Initializable {
         }
 
         resetForm();
-
         saveBtn.setOnAction(event -> {
             try {
                 JobHistory jobHistory =

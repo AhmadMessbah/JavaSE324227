@@ -7,15 +7,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mft.library.model.entity.Employment;
-import mft.library.model.entity.JobHistory;
 import mft.library.model.entity.Person;
 import mft.library.model.service.EmploymentService;
-import mft.library.model.service.JobService;
 import mft.library.model.service.PersonService;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,7 +30,10 @@ public class EmploymentController implements Initializable{
     private TableView<Employment> employmentTable;
 
     @FXML
-    private TableColumn<Employment, String> idCol,personCol,jobCol;
+    private TableColumn<Employment, Integer> idCol;
+
+    @FXML
+    private TableColumn<Employment, String> personCol,jobCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

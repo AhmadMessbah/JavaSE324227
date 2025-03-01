@@ -10,11 +10,11 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
-    private MenuItem newPersonMnu, editPersonMnu, removePersonMnu, findPersonMnu,
-            newDriverLicenseMnu, editDriverLicenseMnu, removeDriverLicenseMnu, findDriverLicenseMnu;
+    private MenuItem newPersonMnu, editPersonMnu, removePersonMnu, findPersonMnu;
+    @FXML
+    private MenuItem newDriverLicenseMnu, editDriverLicenseMnu, removeDriverLicenseMnu, findDriverLicenseMnu;
     @FXML
     private MenuItem newMilitaryMnu, editMilitaryMnu, removeMilitaryMnu, findMilitaryMnu;
-
 
 
     @Override
@@ -82,6 +82,7 @@ public class MainController implements Initializable {
             System.out.println(ex.getMessage());
         }
     }
+
     public void showDriverLicenseForm() {
         try {
             FormViewer formViewer = new FormViewer();
