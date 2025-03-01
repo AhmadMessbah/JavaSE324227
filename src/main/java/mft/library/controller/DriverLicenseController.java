@@ -32,24 +32,24 @@ public class DriverLicenseController implements Initializable {
     private TableView<DriverLicense> driverLicenseTable;
 
     @FXML
-    private TableColumn<DriverLicense, Integer> idCol;
+    private TableColumn<DriverLicense, Integer> idCol,licenseIdCol;
 
     @FXML
-    private TableColumn<DriverLicense, String> nameCol,licenseIdCol,dateTimeCol,expireCol;
+    private TableColumn<DriverLicense, String> nameCol,dateTimeCol,expireCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        if (FormViewer.DriverLicenseFormState.equals(FormState.New)) {
+        if (FormViewer.driverLicenseFormState.equals(FormState.New)) {
             editBtn.setDisable(true);
             removeBtn.setDisable(true);
-        } else if (FormViewer.DriverLicenseFormState.equals(FormState.Edit)) {
+        } else if (FormViewer.driverLicenseFormState.equals(FormState.Edit)) {
             saveBtn.setDisable(true);
             removeBtn.setDisable(true);
-        } else if (FormViewer.DriverLicenseFormState.equals(FormState.Remove)) {
+        } else if (FormViewer.driverLicenseFormState.equals(FormState.Remove)) {
             saveBtn.setDisable(true);
             editBtn.setDisable(true);
-        } else if (FormViewer.DriverLicenseFormState.equals(FormState.Find)) {
+        } else if (FormViewer.driverLicenseFormState.equals(FormState.Find)) {
             saveBtn.setDisable(true);
             editBtn.setDisable(true);
             removeBtn.setDisable(true);
