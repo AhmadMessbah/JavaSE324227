@@ -67,16 +67,12 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicense, In
 
     @Override
     public List<MilitaryLicense> findAll() throws Exception {
-        preparedStatement = connection.prepareStatement(
-                "SELECT military_license.id AS militaryLicenseId, military_id, military_type, province, " +
-                        "start_military_date, end_military_date," +
-                        " persons.id AS personId, name, family, birth_date, username, password, is_active" +
-                        " FROM military_license,persons" +
-                        " WHERE military_license.is_deleted = 0 AND military_license.person_id = persons.id" +
-                        " ORDER BY military_license.id;"
-        );
+        String sql = "SELECT military_license.id AS militaryLicenseId, military_id, military_type, province, " +
+                "start_military_date, end_military_date," +
+                " persons.p_id AS personId, name, family, birth_date" +
+                " FROM military_license LEFT JOIN persons ON military_license.PERSON_ID = persons.P_ID";
+        preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
-
         List<MilitaryLicense> militaryLicenseList = new ArrayList<>();
         while (resultSet.next()) {
             Person person = Person
@@ -85,11 +81,7 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicense, In
                     .name(resultSet.getString("name"))
                     .family(resultSet.getString("family"))
                     .birthDate(resultSet.getDate("birth_date").toLocalDate())
-                    .username(resultSet.getString("username"))
-                    .password(resultSet.getString("password"))
-                    .active(resultSet.getBoolean("is_active"))
                     .build();
-
             MilitaryLicense militaryLicense = MilitaryLicense
                     .builder()
                     .id(resultSet.getInt("militaryLicenseId"))
@@ -107,14 +99,14 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicense, In
 
     @Override
     public MilitaryLicense findById(Integer id) throws Exception {
-        preparedStatement = connection.prepareStatement(
+        String sql =
                 "SELECT military_license.id AS militaryLicenseId, military_id, military_type, province, " +
                         "start_military_date, end_military_date," +
-                        " persons.id AS personId, name, family, birth_date, username, password, is_active" +
-                        " FROM military_license,persons" +
-                        " WHERE military_license.id =? AND military_license.is_deleted = 0" +
-                        " AND military_license.person_id = persons.id"
-        );
+                        " persons.p_id AS personId, name, family, birth_date" +
+                        " FROM military_license" +
+                        " LEFT JOIN persons ON military_license.person_id = persons.p_id" +
+                        " WHERE military_license.id =? AND military_license.is_deleted = 0;";
+        preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
 

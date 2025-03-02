@@ -1,6 +1,5 @@
 package mft.library.controller;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,11 +8,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import lombok.extern.log4j.Log4j;
 import mft.library.model.entity.Person;
 import mft.library.model.service.PersonService;
 
 import java.util.List;
 
+@Log4j
 public class PersonModalController {
 
     @FXML
@@ -30,8 +31,18 @@ public class PersonModalController {
         loadPersonData();
 
         selectBtn.setOnAction(e -> {
+            selectedPerson = personTable.getSelectionModel().getSelectedItem();
+            if (selectedPerson != null) {
+                Stage stage = (Stage) selectBtn.getScene().getWindow();
+                stage.close();
+                MilitaryLicenseController militaryLicenseController = new MilitaryLicenseController();
+                militaryLicenseController.fillPersonField(selectedPerson);
+            }
+
         });
         cancelBtn.setOnAction(e -> {
+            Stage stage = (Stage) selectBtn.getScene().getWindow();
+            stage.close();
         });
     }
 
@@ -47,23 +58,7 @@ public class PersonModalController {
             personTable.setItems(personObservableList);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage());
         }
-    }
-
-    @FXML
-    private void selectPerson() {
-        selectedPerson = personTable.getSelectionModel().getSelectedItem();
-        if (selectedPerson != null) {
-            Stage stage = (Stage) personTable.getScene().getWindow();
-            stage.close();
-        }
-    }
-
-    @FXML
-    private void closeModal() {
-        selectedPerson = null;
-        Stage stage = (Stage) personTable.getScene().getWindow();
-        stage.close();
     }
 }

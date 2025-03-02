@@ -16,6 +16,7 @@ import mft.library.model.entity.enums.MilitaryType;
 import mft.library.model.entity.enums.Province;
 import mft.library.model.service.MilitaryLicenseService;
 
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -52,12 +53,20 @@ public class MilitaryLicenseController implements Initializable {
         if (FormViewer.militaryFormState.equals(FormState.New)) {
             updateBtn.setDisable(true);
             deleteBtn.setDisable(true);
+            refreshBtn.setVisible(false);
+            log.info("Save Mode");
         } else if (FormViewer.militaryFormState.equals(FormState.Edit)) {
             saveBtn.setDisable(true);
             deleteBtn.setDisable(true);
+            addPersonBtn.setDisable(true);
+            fillFieldsByMouseClick();
+            log.info("Edit Mode");
         } else if (FormViewer.militaryFormState.equals(FormState.Remove)) {
             saveBtn.setDisable(true);
             updateBtn.setDisable(true);
+            addPersonBtn.setDisable(true);
+            fillFieldsByMouseClick();
+            log.info("Remove Mode");
         } else if (FormViewer.militaryFormState.equals(FormState.Find)) {
             saveBtn.setVisible(false);
             updateBtn.setVisible(false);
@@ -67,6 +76,7 @@ public class MilitaryLicenseController implements Initializable {
             militaryLicenseTable.setLayoutY(23);
             militaryLicenseTable.setPrefWidth(860);
             militaryLicenseTable.setPrefHeight(515);
+            log.info("Find Mode");
         }
 
         log.info("View initialized");
@@ -112,7 +122,7 @@ public class MilitaryLicenseController implements Initializable {
                 resetForm();
                 log.info("License Saved : " + militaryLicense);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Saving Process Failed", ButtonType.OK);
                 alert.show();
                 log.error(e);
             }
@@ -134,7 +144,7 @@ public class MilitaryLicenseController implements Initializable {
                 resetForm();
                 log.info("License Updated : " + militaryLicense);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Updating Process Failed");
                 alert.show();
                 log.error(e);
             }
@@ -150,7 +160,7 @@ public class MilitaryLicenseController implements Initializable {
                         resetForm();
                         log.info("License Deleted");
                     } catch (Exception e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "Deleting Process Failed");
                         alert.show();
                         log.error(e);
                     }
@@ -173,21 +183,6 @@ public class MilitaryLicenseController implements Initializable {
             }
         });*/
 
-        militaryLicenseTable.setOnMouseReleased(event -> {
-            MilitaryLicense militaryLicense = militaryLicenseTable.getSelectionModel().getSelectedItem();
-            if (militaryLicense != null) {
-                id.setText(String.valueOf(militaryLicense.getId()));
-                militaryId.setText(String.valueOf(militaryLicense.getMilitaryId()));
-                startDate.setValue(militaryLicense.getStartMilitaryDate());
-                endDate.setValue(militaryLicense.getEndMilitaryDate());
-                provinceComboBox.getSelectionModel().select(militaryLicense.getProvince());
-                militaryTypeComboBox.getSelectionModel().select(militaryLicense.getType());
-                person.setText((String.valueOf(militaryLicense.getPerson().getName()))
-                        .concat(String.valueOf(militaryLicense.getPerson().getFamily())));
-            }
-            FormViewer.selectedMilitaryLicense = militaryLicense;
-        });
-
         refreshBtn.setOnAction(event -> {
             resetForm();
         });
@@ -198,7 +193,7 @@ public class MilitaryLicenseController implements Initializable {
                 PersonModalController personModalController = new PersonModalController();
                 personModalController.loadPersonData();
             } catch (Exception e) {
-               log.error(e);
+                log.error(e);
             }
         });
     }
@@ -222,14 +217,34 @@ public class MilitaryLicenseController implements Initializable {
         ObservableList<MilitaryLicense> militaryLicenseObservableList = FXCollections.observableArrayList(militaryLicenseList);
         idCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
         militaryIdCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getMilitaryId()));
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        firstNameCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPerson().getName()));
+        lastNameCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPerson().getFamily()));
 
         militaryLicenseTable.setItems(militaryLicenseObservableList);
     }
 
     public void fillPersonField(Person selectedPerson) {
-        person.setText((String.valueOf(selectedPerson.getName()))
-                .concat(String.valueOf(selectedPerson.getFamily())));
+        System.out.println(selectedPerson);
+        System.out.println(selectedPerson.getName().concat(selectedPerson.getFamily()));
+//        person.setText(((selectedPerson.getName() + " "))
+//                .concat(String.valueOf(selectedPerson.getFamily())));
+//        person.setText("nothing");
+    }
+
+    private void fillFieldsByMouseClick() {
+        militaryLicenseTable.setOnMouseReleased(event -> {
+            MilitaryLicense militaryLicense = militaryLicenseTable.getSelectionModel().getSelectedItem();
+            if (militaryLicense != null) {
+                id.setText(String.valueOf(militaryLicense.getId()));
+                militaryId.setText(String.valueOf(militaryLicense.getMilitaryId()));
+                startDate.setValue(militaryLicense.getStartMilitaryDate());
+                endDate.setValue(militaryLicense.getEndMilitaryDate());
+                provinceComboBox.getSelectionModel().select(militaryLicense.getProvince());
+                militaryTypeComboBox.getSelectionModel().select(militaryLicense.getType());
+                person.setText(((militaryLicense.getPerson().getName() + " "))
+                        .concat(String.valueOf(militaryLicense.getPerson().getFamily())));
+                FormViewer.selectedMilitaryLicense = militaryLicense;
+            }
+        });
     }
 }

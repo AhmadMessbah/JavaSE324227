@@ -26,9 +26,9 @@ public class MilitaryLicenseApp extends Application {
 
 
     public static void showPersonModal() throws IOException {
-//            Scene scene = new Scene(FXMLLoader.load(MilitaryLicenseApp.class.getResource("/javafx/personModal.fxml")));
+//            Scene scene = new Scene(FXMLLoader.load(MilitaryLicenseApp.class.getResource("/javafx/personModalView.fxml")));
 
-        FXMLLoader fxmlLoader = new FXMLLoader(MilitaryLicenseApp.class.getResource("/javafx/personModal.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MilitaryLicenseApp.class.getResource("/javafx/personModalView.fxml"));
             Parent root = fxmlLoader.load();
             log.info("Showing modal");
             Stage modalStage = new Stage();
