@@ -47,6 +47,8 @@ public class PersonController implements Initializable {
     @FXML
     private Label welcomeLbl;
 
+    private PersonService personService = new PersonService();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         welcomeLbl.setText("Welcome " + FormViewer.loggedInPerson.getUsername());
@@ -84,7 +86,7 @@ public class PersonController implements Initializable {
                         .password(passTxt.getText())
                         .active(activeRdo.isSelected())
                         .build();
-                PersonService.save(person);
+                personService.save(person);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Member Saved : " + person, ButtonType.OK);
                 alert.show();
                 resetForm();
@@ -107,7 +109,7 @@ public class PersonController implements Initializable {
                         .password(passTxt.getText())
                         .active(activeRdo.isSelected())
                         .build();
-                PersonService.edit(person);
+                personService.edit(person);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Member Edited", ButtonType.OK);
                 alert.show();
                 resetForm();
@@ -120,7 +122,7 @@ public class PersonController implements Initializable {
         });
         removeBtn.setOnAction(event -> {
             try {
-                PersonService.remove(Integer.parseInt(idTxt.getText()));
+                personService.remove(Integer.parseInt(idTxt.getText()));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Member Removed", ButtonType.OK);
                 alert.show();
                 resetForm();
@@ -134,14 +136,14 @@ public class PersonController implements Initializable {
 
         nameSearchTxt.setOnKeyReleased(event -> {
             try {
-                refreshTable(PersonService.findByNameAndFamily(nameSearchTxt.getText(), familySearchTxt.getText()));
+                refreshTable(personService.findByNameAndFamily(nameSearchTxt.getText(), familySearchTxt.getText()));
             } catch (Exception e) {
                 log.error(e);
             }
         });
         familySearchTxt.setOnKeyReleased(event -> {
             try {
-                refreshTable(PersonService.findByNameAndFamily(nameSearchTxt.getText(), familySearchTxt.getText()));
+                refreshTable(personService.findByNameAndFamily(nameSearchTxt.getText(), familySearchTxt.getText()));
             } catch (Exception e) {
                 log.error(e);
             }
@@ -178,7 +180,7 @@ public class PersonController implements Initializable {
         nameSearchTxt.clear();
         familySearchTxt.clear();
         try {
-            refreshTable(PersonService.findAll());
+            refreshTable(personService.findAll());
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
             alert.show();
