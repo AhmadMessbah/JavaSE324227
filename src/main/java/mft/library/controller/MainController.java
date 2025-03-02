@@ -86,7 +86,7 @@ public class MainController implements Initializable {
     public void showDriverLicenseForm() {
         try {
             FormViewer formViewer = new FormViewer();
-            formViewer.showDriverLicenseForm();
+//            formViewer.showForm();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -95,7 +95,7 @@ public class MainController implements Initializable {
     public void showMilitaryLicenseForm() {
         try {
             FormViewer formViewer = new FormViewer();
-            formViewer.showMilitaryLicenseForm();
+//            formViewer.showMilitaryLicenseForm();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
