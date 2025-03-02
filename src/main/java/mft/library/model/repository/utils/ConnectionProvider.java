@@ -8,6 +8,19 @@ import java.sql.*;
 public class ConnectionProvider {
     private static BasicDataSource dataSource = new BasicDataSource();
 
+//  Singleton
+    private static ConnectionProvider connectionProvider;
+
+    public static ConnectionProvider getConnectionProvider() {
+        if (connectionProvider == null) {
+            connectionProvider = new ConnectionProvider();
+        }
+        return connectionProvider;
+    }
+
+    private ConnectionProvider() {
+    }
+
     public Connection getConnection() throws Exception {
         dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
         dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");

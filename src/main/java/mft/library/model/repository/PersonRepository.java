@@ -13,15 +13,10 @@ public class PersonRepository implements Repository <Person, Integer>{
     private Connection connection;
     private PreparedStatement preparedStatement;
 
-    public PersonRepository() throws Exception {
-        ConnectionProvider connectionProvider = new ConnectionProvider();
-        connection = connectionProvider.getConnection();
-    }
-
     @Override
     public void save(Person person) throws Exception {
-        ConnectionProvider connectionProvider = new ConnectionProvider();
-        person.setId(connectionProvider.nextId("member_seq"));
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
+        person.setId(ConnectionProvider.getConnectionProvider().nextId("member_seq"));
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO PERSONS (P_ID, NAME, FAMILY, BIRTH_DATE, USERNAME, PASSWORD, IS_ACTIVE) VALUES (?,?,?,?,?,?,?)"
         );
@@ -37,6 +32,7 @@ public class PersonRepository implements Repository <Person, Integer>{
 
     @Override
     public void edit(Person person) throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
         preparedStatement = connection.prepareStatement(
                 "UPDATE PERSONS SET NAME=?, FAMILY=?, BIRTH_DATE=?, PASSWORD=?, IS_ACTIVE=? WHERE P_ID=?"
         );
@@ -51,6 +47,7 @@ public class PersonRepository implements Repository <Person, Integer>{
 
     @Override
     public void remove(Integer id) throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
         preparedStatement = connection.prepareStatement(
                 "DELETE FROM PERSONS WHERE P_ID=?"
         );
@@ -60,6 +57,7 @@ public class PersonRepository implements Repository <Person, Integer>{
 
     @Override
     public List<Person> findAll() throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM PERSONS ORDER BY FAMILY, NAME"
         );
@@ -84,6 +82,7 @@ public class PersonRepository implements Repository <Person, Integer>{
 
     @Override
     public Person findById(Integer id) throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM PERSONS WHERE P_ID=?"
         );
@@ -107,6 +106,7 @@ public class PersonRepository implements Repository <Person, Integer>{
     }
 
     public List<Person> findByNameAndFamily(String name, String family) throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM PERSONS WHERE NAME LIKE ? AND FAMILY LIKE ? ORDER BY FAMILY, NAME"
         );
@@ -132,6 +132,7 @@ public class PersonRepository implements Repository <Person, Integer>{
     }
 
     public Person findByUsernameAndPassword(String username, String password) throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM PERSONS WHERE USERNAME=? AND PASSWORD=?"
         );
