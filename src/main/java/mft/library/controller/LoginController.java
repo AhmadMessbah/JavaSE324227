@@ -19,13 +19,15 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginBtn;
 
+    private PersonService personService;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loginBtn.setOnAction(event -> {
             try {
-                FormViewer.loggedInPerson = PersonService.findByUsernameAndPassword(userTxt.getText(), passTxt.getText());;
+                FormViewer.loggedInPerson = personService.findByUsernameAndPassword(userTxt.getText(), passTxt.getText());;
                 FormViewer formViewer = new FormViewer();
-                formViewer.showMainPanel();
+                formViewer.showForm("mainView", "Panel");
 
                 loginBtn.getScene().getWindow().hide();
             } catch (Exception e) {
