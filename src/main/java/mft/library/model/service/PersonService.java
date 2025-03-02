@@ -61,4 +61,14 @@ public class PersonService {
             return personList;
         }
     }
+
+    public static Person findByUsernameAndPassword(String username, String password) throws Exception {
+        try (PersonRepository personRepository = new PersonRepository()) {
+            Person person = personRepository.findByUsernameAndPassword(username, password);
+            if (person == null) {
+                throw new Exception("Access Denied !!! Username or Password Incorrect");
+            }
+            return person;
+        }
+    }
 }

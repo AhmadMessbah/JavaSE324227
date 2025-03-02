@@ -1,7 +1,10 @@
+import mft.library.model.repository.dbsql.DatabaseMaker;
+
 public class JavaDataCreator {
 //    static Logger logger = Logger.getLogger(JavaDataCreator.class);
 
     public void main(String[] args) throws Exception {
+        DatabaseMaker.createDatabase();
 //        Member member = Member
 //                .builder()
 //                .name("ali")

@@ -3,6 +3,7 @@ package mft.library.model.repository;
 import lombok.extern.log4j.Log4j;
 import mft.library.model.entity.DriverLicense;
 import mft.library.model.entity.Person;
+import mft.library.model.repository.utils.ConnectionProvider;
 
 import java.sql.*;
 import java.util.ArrayList;

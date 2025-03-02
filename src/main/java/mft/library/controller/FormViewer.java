@@ -11,12 +11,21 @@ import mft.library.model.entity.enums.FormState;
 
 @Log4j
 public class FormViewer {
-    public static FormState personFormState,militaryFormState,driverLicenseFormState;
-    public static Person selectedPerson;
+    public static FormState personFormState = FormState.New ,militaryFormState,driverLicenseFormState;
+    public static Person loggedInPerson, selectedPerson;
     public static FormState jobHistoryFormState;
     public static Person selectedJobHistory;
     public static MilitaryLicense selectedMilitaryLicense;
     public static DriverLicense selectedDriverLicense;
+
+    public void showMainPanel() throws Exception {
+        log.info("Starting Application");
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/javafx/mainView.fxml")));
+        stage.setScene(scene);
+        stage.setTitle("Member Info");
+        stage.show();
+    }
 
     public void showPersonForm() throws Exception {
         log.info("Starting Application");

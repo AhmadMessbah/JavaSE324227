@@ -4,6 +4,7 @@ import mft.library.model.entity.Bimeh;
 import mft.library.model.entity.Person;
 import mft.library.model.entity.enums.InsuranceStatus;
 import mft.library.model.entity.enums.InsuranceType;
+import mft.library.model.repository.utils.ConnectionProvider;
 
 import java.util.List;
 

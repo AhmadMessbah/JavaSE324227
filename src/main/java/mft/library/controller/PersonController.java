@@ -44,9 +44,13 @@ public class PersonController implements Initializable {
     @FXML
     private TableColumn<Person, String> nameCol, familyCol, userCol;
 
+    @FXML
+    private Label welcomeLbl;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        welcomeLbl.setText("Welcome " + FormViewer.loggedInPerson.getUsername());
+
         if (FormViewer.personFormState.equals(FormState.New)) {
             editBtn.setDisable(true);
             removeBtn.setDisable(true);
@@ -145,6 +149,7 @@ public class PersonController implements Initializable {
 
         personTable.setOnMouseReleased(event -> {
             Person person = personTable.getSelectionModel().getSelectedItem();
+            System.out.println(person);
             idTxt.setText(String.valueOf(person.getId()));
             nameTxt.setText(person.getName());
             familyTxt.setText(person.getFamily());

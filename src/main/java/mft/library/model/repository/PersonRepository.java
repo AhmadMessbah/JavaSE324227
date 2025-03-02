@@ -2,6 +2,7 @@ package mft.library.model.repository;
 
 import lombok.extern.log4j.Log4j;
 import mft.library.model.entity.Person;
+import mft.library.model.repository.utils.ConnectionProvider;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -128,6 +129,30 @@ public class PersonRepository implements Repository <Person, Integer>{
             personList.add(person);
         }
         return personList;
+    }
+
+    public Person findByUsernameAndPassword(String username, String password) throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "SELECT * FROM PERSONS WHERE USERNAME=? AND PASSWORD=?"
+        );
+        preparedStatement.setString(1,  username);
+        preparedStatement.setString(2,  password);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        Person person = null;
+        if(resultSet.next()) {
+            person = Person
+                    .builder()
+                    .id(resultSet.getInt("P_ID"))
+                    .name(resultSet.getString("NAME"))
+                    .family(resultSet.getString("FAMILY"))
+                    .birthDate(resultSet.getDate("BIRTH_DATE").toLocalDate())
+                    .username(resultSet.getString("USERNAME"))
+                    .password(resultSet.getString("PASSWORD"))
+                    .active(resultSet.getBoolean("IS_ACTIVE"))
+                    .build();
+        }
+        return person;
     }
 
     @Override

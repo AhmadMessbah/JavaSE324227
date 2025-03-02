@@ -2,6 +2,7 @@ package mft.library.model.repository;
 
 import mft.library.model.entity.JobHistory;
 import mft.library.model.entity.Person;
+import mft.library.model.repository.utils.ConnectionProvider;
 
 import java.sql.*;
 import java.util.ArrayList;

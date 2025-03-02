@@ -2,13 +2,13 @@ package mft.library.model.repository;
 
 import mft.library.model.entity.Employment;
 import mft.library.model.entity.Person;
+import mft.library.model.repository.utils.ConnectionProvider;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EmploymentRepository implements Repository<Employment , Integer> {
