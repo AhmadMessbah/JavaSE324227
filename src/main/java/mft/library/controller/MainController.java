@@ -77,7 +77,7 @@ public class MainController implements Initializable {
     public void showPersonForm() {
         try {
             FormViewer formViewer = new FormViewer();
-            formViewer.showPersonForm();
+            formViewer.showForm("personView", "Person Information");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
