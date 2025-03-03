@@ -95,7 +95,7 @@ public class MainController implements Initializable {
     public void showMilitaryLicenseForm() {
         try {
             FormViewer formViewer = new FormViewer();
-//            formViewer.showMilitaryLicenseForm();
+            formViewer.showForm("militaryLicense", "Military Information");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

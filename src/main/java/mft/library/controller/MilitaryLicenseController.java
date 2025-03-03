@@ -1,5 +1,6 @@
 package mft.library.controller;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,6 +47,8 @@ public class MilitaryLicenseController implements Initializable {
 
     @FXML
     private TableColumn<MilitaryLicense, String> firstNameCol, lastNameCol;
+
+    MilitaryLicenseService militaryLicenseService = new MilitaryLicenseService();
 
 
     @Override
@@ -116,7 +119,7 @@ public class MilitaryLicenseController implements Initializable {
                         .province(provinceComboBox.getValue())
                         .person(Person.builder().id(Integer.parseInt(person.getText())).build())
                         .build();
-                MilitaryLicenseService.save(militaryLicense);
+                militaryLicenseService.save(militaryLicense);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "New License Saved ", ButtonType.OK);
                 alert.show();
                 resetForm();
@@ -138,7 +141,7 @@ public class MilitaryLicenseController implements Initializable {
                         .type(militaryTypeComboBox.getValue())
                         .person(Person.builder().id(Integer.parseInt(person.getText())).build())
                         .build();
-                MilitaryLicenseService.edit(militaryLicense);
+                militaryLicenseService.edit(militaryLicense);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "License Updated", ButtonType.OK);
                 alert.show();
                 resetForm();
@@ -154,7 +157,7 @@ public class MilitaryLicenseController implements Initializable {
             confirmation.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.YES) {
                     try {
-                        MilitaryLicenseService.remove(Integer.parseInt(id.getText()));
+                        militaryLicenseService.remove(Integer.parseInt(id.getText()));
                         Alert alert = new Alert(Alert.AlertType.INFORMATION, "License Deleted", ButtonType.OK);
                         alert.show();
                         resetForm();
@@ -207,7 +210,7 @@ public class MilitaryLicenseController implements Initializable {
         provinceComboBox.setValue(null);
         militaryTypeComboBox.setValue(null);
         try {
-            refreshTable(MilitaryLicenseService.findAll());
+            refreshTable(militaryLicenseService.findAll());
         } catch (Exception e) {
             log.error(e);
         }
@@ -226,9 +229,17 @@ public class MilitaryLicenseController implements Initializable {
     public void fillPersonField(Person selectedPerson) {
         System.out.println(selectedPerson);
         System.out.println(selectedPerson.getName().concat(selectedPerson.getFamily()));
+        System.out.println("Trying to set text...");
+        Platform.runLater(() -> {
+            if (person != null) {
+                person.setText("Test Value");
+                System.out.println("Text Set Successfully!");
+            } else {
+                System.out.println("person is null!");
+            }
+        });
 //        person.setText(((selectedPerson.getName() + " "))
 //                .concat(String.valueOf(selectedPerson.getFamily())));
-//        person.setText("nothing");
     }
 
     private void fillFieldsByMouseClick() {

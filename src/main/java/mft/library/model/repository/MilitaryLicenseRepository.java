@@ -20,8 +20,7 @@ public class MilitaryLicenseRepository implements Repository<MilitaryLicense, In
     private PreparedStatement preparedStatement;
 
     public MilitaryLicenseRepository() throws Exception {
-        ConnectionProvider connectionProvider = new ConnectionProvider();
-        connection = connectionProvider.getConnection();
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
         log.info("Connected to database");
     }
 

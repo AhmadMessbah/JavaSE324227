@@ -6,14 +6,14 @@ import mft.library.model.repository.MilitaryLicenseRepository;
 import java.util.List;
 
 public class MilitaryLicenseService {
-    public static void save(MilitaryLicense militaryLicense) throws Exception {
+    public void save(MilitaryLicense militaryLicense) throws Exception {
         dateValidation(militaryLicense);
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
             militaryLicenseRepository.save(militaryLicense);
         }
     }
 
-    public static void edit(MilitaryLicense militaryLicense) throws Exception {
+    public void edit(MilitaryLicense militaryLicense) throws Exception {
         findById(militaryLicense.getId());
         dateValidation(militaryLicense);
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
@@ -21,14 +21,14 @@ public class MilitaryLicenseService {
         }
     }
 
-    public static void remove(int id) throws Exception {
+    public void remove(int id) throws Exception {
         findById(id);
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
             militaryLicenseRepository.remove(id);
         }
     }
 
-    public static List<MilitaryLicense> findAll() throws Exception {
+    public List<MilitaryLicense> findAll() throws Exception {
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
             List<MilitaryLicense> militaryLicenseList = militaryLicenseRepository.findAll();
             if (militaryLicenseList.isEmpty()) {
@@ -38,7 +38,7 @@ public class MilitaryLicenseService {
         }
     }
 
-    public static MilitaryLicense findById(int id) throws Exception {
+    public MilitaryLicense findById(int id) throws Exception {
         try (MilitaryLicenseRepository militaryLicenseRepository = new MilitaryLicenseRepository()) {
             MilitaryLicense militaryLicense = militaryLicenseRepository.findById(id);
             if (militaryLicense == null) {
@@ -48,7 +48,7 @@ public class MilitaryLicenseService {
         }
     }
 
-    private static void dateValidation(MilitaryLicense militaryLicense) throws Exception {
+    private void dateValidation(MilitaryLicense militaryLicense) throws Exception {
         if (!(militaryLicense.getStartMilitaryDate().getYear() >= 1980 && militaryLicense.getStartMilitaryDate().getYear() <= 2024)) {
             throw new Exception("Invalid start date");
         }

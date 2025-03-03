@@ -25,6 +25,7 @@ public class PersonModalController {
     private Button selectBtn, cancelBtn;
 
     private Person selectedPerson;
+    PersonService personService = new PersonService();
 
     @FXML
     public void initialize() {
@@ -48,7 +49,7 @@ public class PersonModalController {
 
     public void loadPersonData() {
         try {
-            List<Person> personList = PersonService.findAll();
+            List<Person> personList = personService.findAll();
             ObservableList<Person> personObservableList = FXCollections.observableArrayList(personList);
 
             fNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
