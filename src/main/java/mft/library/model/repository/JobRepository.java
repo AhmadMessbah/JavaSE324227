@@ -12,15 +12,15 @@ public class JobRepository implements Repository<JobHistory, Integer> {
     private static Connection connection;
     private static PreparedStatement preparedStatement;
 
-    public JobRepository() throws Exception {
-        ConnectionProvider connectionProvider = new ConnectionProvider();
-        connection = connectionProvider.getConnection();
-    }
+//    public JobRepository() throws Exception {
+//        ConnectionProvider connectionProvider = new ConnectionProvider();
+//        connection = connectionProvider.getConnection();
+//    }
 
     @Override
     public void save(JobHistory jobHistory) throws Exception {
-        ConnectionProvider connectionProvider = new ConnectionProvider();
-        jobHistory.setId(connectionProvider.nextId("job_seq"));
+connection = ConnectionProvider.getConnectionProvider().getConnection();
+        jobHistory.setId(connection.nextId("job_seq"));
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO JOBS (j_id, job,company,description,start_date,end_date, person_id) VALUES (?,?,?,?,?,?,?)"
         );
@@ -36,6 +36,8 @@ public class JobRepository implements Repository<JobHistory, Integer> {
 
     @Override
     public void edit(JobHistory jobHistory) throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
+
         preparedStatement = connection.prepareStatement(
                 "update JOBS SET JOB =?, COMPANY=?, DESCRIPTION=?, START_DATE=?, END_DATE=?, PERSON_ID=? where j_id=?"
         );
@@ -51,6 +53,8 @@ public class JobRepository implements Repository<JobHistory, Integer> {
 
     @Override
     public void remove(Integer id) throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
+
         preparedStatement = connection.prepareStatement(
                 "DELETE FROM JOBS WHERE J_ID=?"
         );
@@ -60,6 +64,8 @@ public class JobRepository implements Repository<JobHistory, Integer> {
 
     @Override
     public List<JobHistory> findAll() throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
+
         preparedStatement = connection.prepareStatement(
                 "select * from persons right join jobs on jobs.person_id = persons.p_id"
         );
@@ -95,6 +101,8 @@ public class JobRepository implements Repository<JobHistory, Integer> {
 
     @Override
     public JobHistory findById(Integer id) throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
+
         preparedStatement = connection.prepareStatement(
                 "select * from persons right join jobs on jobs.person_id = persons.p_id where jobs.j_id = ?"
         );
@@ -129,6 +137,8 @@ public class JobRepository implements Repository<JobHistory, Integer> {
     }
 
     public List<JobHistory> findByJobAndFamily(String job, String family) throws Exception {
+        connection = ConnectionProvider.getConnectionProvider().getConnection();
+
         preparedStatement = connection.prepareStatement(
                 "select * from persons right join jobs on jobs.person_id = persons.p_id where job like ? and family like ?"
         );
