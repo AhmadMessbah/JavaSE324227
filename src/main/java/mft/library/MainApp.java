@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
 
+// Comment
 @Log4j
 public class MainApp extends Application {
     @Override
